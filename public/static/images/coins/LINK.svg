@@ -1,0 +1,20 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Coins/LINK" clip-path="url(#clip0_114_598)">
+<path id="Vector" d="M47.5001 24C47.5001 36.9787 36.9788 47.5 24.0001 47.5C11.0214 47.5 0.500122 36.9787 0.500122 24C0.500122 11.0213 11.0214 0.5 24.0001 0.5C36.9788 0.5 47.5001 11.0213 47.5001 24Z" fill="white" stroke="#E0E0E0"/>
+<g id="chainlink-link-logo 1" clip-path="url(#clip1_114_598)">
+<g id="Layer 2">
+<g id="Layer 1">
+<path id="Vector_2" d="M24.0052 7.125L20.9088 8.90539L12.4713 13.7821L9.375 15.5625V32.4375L12.4713 34.2179L20.9862 39.0946L24.0826 40.875L27.1789 39.0946L35.539 34.2179L38.6353 32.4375V15.5625L35.539 13.7821L27.1015 8.90539L24.0052 7.125ZM15.5677 28.8767V19.1233L24.0052 14.2466L32.4427 19.1233V28.8767L24.0052 33.7534L15.5677 28.8767Z" fill="#2A5ADA"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_114_598">
+<rect width="48" height="48" fill="white"/>
+</clipPath>
+<clipPath id="clip1_114_598">
+<rect width="29.2603" height="33.75" fill="white" transform="translate(9.375 7.125)"/>
+</clipPath>
+</defs>
+</svg>

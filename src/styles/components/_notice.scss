@@ -1,0 +1,110 @@
+.ui--notice {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 50;
+  pointer-events: none;
+
+  &-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2.75rem 1fr;
+    width: fit-content;
+    min-width: 275px;
+    max-width: 425px;
+    margin-left: auto;
+    pointer-events: all;
+    background-color: var(--color-white);
+    border-radius: $border-radius-medium;
+    box-shadow: 0 0 0 1px var(--color-blue-2), 0 0.5rem 1rem var(--color-hunt-1);
+    transition: all $transition-time $cubic-bezier;
+
+    &:not(:last-child) {
+      margin: 0 0 1rem auto;
+    }
+
+    &.enter,
+    &.exit-active {
+      opacity: 0;
+      transform: translateX(0.5rem);
+    }
+
+    &.enter-active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  &-icon {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    border-radius: $border-radius-medium 0 0 $border-radius-medium;
+
+    .icon {
+      margin: 0.88rem 0 0;
+      color: var(--color-hunt-1);
+      font-size: $font-size-large + 2;
+    }
+
+    &.info {
+      background-color: var(--color-blue);
+    }
+
+    &.success {
+      background-color: var(--color-green);
+    }
+
+    &.warn {
+      background-color: var(--color-orange);
+    }
+
+    &.error {
+      background-color: var(--color-red);
+    }
+  }
+
+  &-content {
+    padding: 1rem 2.5rem 1rem 1rem;
+
+    .title {
+      text-transform: capitalize;
+      color: var(--color-secondary);
+      font-weight: $font-weight-bold;
+    }
+
+    .content {
+      margin: 0.25rem 0 0;
+      color: var(--color-hunt-4);
+      font-size: $font-size-small;
+
+      b {
+        font-weight: $font-weight-bold;
+      }
+    }
+  }
+
+  &-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    padding: 0.5rem 0.25rem 0 0;
+
+    .btn {
+      &-close {
+        width: 26px;
+        height: 26px;
+        color: var(--color-hunt-4);
+
+        &:hover {
+          color: var(--color-red);
+        }
+
+        .icon {
+          font-size: $font-size-medium;
+        }
+      }
+    }
+  }
+}

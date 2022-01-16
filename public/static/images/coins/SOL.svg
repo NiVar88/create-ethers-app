@@ -1,0 +1,24 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Coins/SOL">
+<circle id="Ellipse 1" cx="24" cy="24" r="23.5" fill="white" stroke="#E0E0E0"/>
+<g id="Group 1">
+<path id="Vector" d="M13.874 30.2251C14.0551 30.0441 14.304 29.9385 14.568 29.9385H38.5082C38.9457 29.9385 39.1644 30.4665 38.8552 30.7757L34.126 35.5049C33.9449 35.686 33.696 35.7915 33.432 35.7915H9.49179C9.05432 35.7915 8.83558 35.2636 9.14483 34.9543L13.874 30.2251Z" fill="url(#paint0_linear_114_367)"/>
+<path id="Vector_2" d="M13.874 12.5679C14.0626 12.3868 14.3115 12.2812 14.568 12.2812H38.5082C38.9457 12.2812 39.1644 12.8092 38.8552 13.1185L34.126 17.8477C33.9449 18.0287 33.696 18.1343 33.432 18.1343H9.49179C9.05432 18.1343 8.83558 17.6063 9.14483 17.2971L13.874 12.5679Z" fill="url(#paint1_linear_114_367)"/>
+<path id="Vector_3" d="M34.126 21.3399C33.9449 21.1589 33.696 21.0533 33.432 21.0533H9.49179C9.05432 21.0533 8.83558 21.5813 9.14483 21.8905L13.874 26.6198C14.0551 26.8008 14.304 26.9064 14.568 26.9064H38.5082C38.9457 26.9064 39.1644 26.3784 38.8552 26.0691L34.126 21.3399Z" fill="url(#paint2_linear_114_367)"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_114_367" x1="36.2212" y1="9.45616" x2="19.6527" y2="41.1916" gradientUnits="userSpaceOnUse">
+<stop stop-color="#00FFA3"/>
+<stop offset="1" stop-color="#DC1FFF"/>
+</linearGradient>
+<linearGradient id="paint1_linear_114_367" x1="28.9765" y1="5.67381" x2="12.408" y2="37.4093" gradientUnits="userSpaceOnUse">
+<stop stop-color="#00FFA3"/>
+<stop offset="1" stop-color="#DC1FFF"/>
+</linearGradient>
+<linearGradient id="paint2_linear_114_367" x1="32.5758" y1="7.55292" x2="16.0072" y2="39.2884" gradientUnits="userSpaceOnUse">
+<stop stop-color="#00FFA3"/>
+<stop offset="1" stop-color="#DC1FFF"/>
+</linearGradient>
+</defs>
+</svg>
