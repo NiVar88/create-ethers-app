@@ -1,36 +1,10 @@
 import { formatISO } from 'date-fns'
-import { GivenProvider } from '@/contracts'
 import { APP_AUTH, APP_CONNECTOR, USER_ADDRESS, USER_INFO } from '@/libs/configs'
 import { getCookie, setCookie, removeCookie, cookieOptions } from '@/libs/cookies'
 import { dispatch, userActions } from '@/store'
-import { modal, notice } from '@/utils'
-import Web3Token from 'web3-token'
+import { modal } from '@/utils'
 
 export class authService {
-  /**
-   * Signin.
-   */
-  static async signin() {
-    const { personal, getCoinbase } = GivenProvider()
-
-    const address = await getCoinbase()
-    const signature = await Web3Token.sign((body: string) => personal.sign(body, address, ''), '7d')
-
-    if (signature) {
-      await this.setAuthCookies(address, signature)
-      await this.getProfile(address)
-      notice.success({
-        title: 'Wallet Connected',
-        content: 'connecting success'
-      })
-    } else {
-      notice.warn({
-        title: 'Failed',
-        content: 'User rejected the request.'
-      })
-    }
-  }
-
   /**
    * GET user profile.
    *
@@ -52,25 +26,16 @@ export class authService {
   }
 
   /**
-   * GET refresh token.
-   *
-   * @param {string} address Wallet Address
-   */
-  static async refreshToken() {
-    return void 0
-  }
-
-  /**
    * SET auth cookies.
    *
    * @param {string} address Wallet Address
    * @param {string} signature Web3 Token Signature
    */
-  static async setAuthCookies(address: string, signature: string) {
+  static async setAuthCookies(address: string, signature?: string) {
     const options = cookieOptions()
 
-    setCookie(APP_AUTH, signature, options)
     setCookie(USER_ADDRESS, address, options)
+    if (signature) setCookie(APP_AUTH, signature, options)
   }
 
   /**

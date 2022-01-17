@@ -1,18 +1,16 @@
 import { ethers } from 'ethers'
-import { Web3Provider } from '@ethersproject/providers'
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { BscConnector } from '@binance-chain/bsc-connector'
 import { getRpcUrl, RPCS } from '@/constants'
-import { DEFAULT_CHAIN_ID } from '@/libs/configs'
 import { ChainId, Connectors } from '@/types'
 
 const RPC_URL = getRpcUrl()
 const supportedChainIds = [ChainId.BSC, ChainId.BSC_TESTNET]
 
 export function getLibrary(provider: any) {
-  const library = new Web3Provider(provider, DEFAULT_CHAIN_ID)
+  const library = new ethers.providers.Web3Provider(provider)
   library.pollingInterval = 1e4
   return library
 }

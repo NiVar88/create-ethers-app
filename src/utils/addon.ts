@@ -50,15 +50,10 @@ export async function resAudit<Data = any>(payload: any): Promise<Data | void> {
       statusText = payload.response.statusText || 'ERR_CONNECTION_REFUSED'
     }
 
-    if (+status === 401) {
-      authService.refreshToken()
-      dialog('<p>Something was wrong!</p><small>Please try again.</small>')
-    } else {
-      dialog({
-        title: 'XHR Error.',
-        children: `<p>Something was wrong!</p><small>${status}: ${statusText}.</small>`
-      })
-    }
+    dialog({
+      title: 'XHR Error.',
+      children: `<p>Something was wrong!</p><small>${status}: ${statusText}.</small>`
+    })
 
     return void 0
   } else {

@@ -1,6 +1,6 @@
 /// <reference types="react-scripts" />
 
-declare type EventNames = 'connect' | 'message' | 'error' | 'close' | 'disconnect' | 'accountsChanged' | 'chainChanged'
+declare type EventNames = 'connect' | 'disconnect' | 'accountsChanged' | 'chainChanged'
 
 declare interface Window {
   readonly web3?: any
@@ -15,7 +15,11 @@ declare interface Window {
     removeListener(e: any, t: any)
   }
   readonly BinanceChain?: {
+    chainId: string
+    on(name: EventNames, callback: (e: any) => void): void
+    request: (...args: any[]) => Promise<void>
     bnbSign?: (address: string, message: string) => Promise<{ publicKey: string; signature: string }>
+    switchNetwork: (networkId: 'bbc-mainnet' | 'bsc-mainnet' | 'bbc-testnet' | 'bsc-testnet') => Promise<any>
   }
 }
 
@@ -27,7 +31,6 @@ declare interface Array<T = any> {
   orderBy: (prop: keyof T, type?: string) => T[]
 }
 
-declare module 'web3-token'
 declare module '*.json'
 declare module '*.svg'
 declare module '*.png'

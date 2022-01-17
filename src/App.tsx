@@ -1,8 +1,8 @@
 import { Suspense, lazy } from 'react'
 import { useSelector } from 'react-redux'
 import { BrowserRouter, Navigate, Routes, Route, useLocation, useSearchParams } from 'react-router-dom'
-import { DialogContainer, LayoutWrapper, ModalContainer, NoticeContainer } from '@/components'
-import { useEagerConnect, useInactiveListener } from '@/hooks'
+import { DialogContainer, LayoutWrapper, ModalContainer, NoticeContainer, WalletListener } from '@/components'
+import { useEagerConnect } from '@/hooks'
 import { userSelector } from '@/store'
 import Home from '@/pages/Home'
 import Guard from '@/pages/Guard'
@@ -13,7 +13,6 @@ const Labs = lazy(() => import('./pages/Labs'))
 export default function Application() {
   // __STATE <React.Hooks>
   useEagerConnect()
-  useInactiveListener()
 
   // __EFFECTS <React.Hooks>
   // useEffect(() => {}, [])
@@ -24,6 +23,8 @@ export default function Application() {
       <DialogContainer />
       <ModalContainer />
       <NoticeContainer />
+
+      <WalletListener />
 
       <Routes>
         <Route path='/' element={<LayoutWrapper />}>

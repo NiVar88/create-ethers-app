@@ -12,8 +12,8 @@ export const RPCS: Record<SupportedChainId, string[]> = {
 
   [SupportedChainId.BSC]: ['https://bsc-dataseed.binance.org'],
   [SupportedChainId.BSC_TESTNET]: [
-    'https://data-seed-prebsc-1-s1.binance.org:8545'
-    // 'https://data-seed-prebsc-1-s2.binance.org:8545'
+    // 'https://data-seed-prebsc-1-s1.binance.org:8545'
+    'https://data-seed-prebsc-1-s2.binance.org:8545'
     // 'https://data-seed-prebsc-1-s3.binance.org:8545'
   ],
 

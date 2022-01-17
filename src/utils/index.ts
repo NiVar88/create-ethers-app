@@ -4,6 +4,7 @@ export { defineProperty } from './defineProperty'
 export { dialog } from './dialog'
 export { Fraction } from './fraction'
 export { modal } from './modal'
+export { setNetwork, registerToken } from './network'
 export { notice } from './notice'
 export { storage, session } from './storage'
 

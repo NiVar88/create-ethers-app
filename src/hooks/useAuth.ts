@@ -55,5 +55,5 @@ export function useAuth() {
     deactivate()
   }, [deactivate])
 
-  return useMemo(() => ({ active, signin, signout }), [active, signin, signout])
+  return useMemo(() => ({ signin, signout }), [signin, signout])
 }
