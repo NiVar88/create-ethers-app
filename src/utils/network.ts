@@ -6,13 +6,13 @@ import { ChainId, Connectors, Token } from '@/types'
 export function setNetwork() {
   const { ethereum, BinanceChain: binance } = window
 
-  if (!ethereum || !binance) return void 0
-
   const connectorName: Connectors = getCookie(APP_CONNECTOR)
-  const chainId: ChainId = DEFAULT_CHAIN_ID
 
   switch (connectorName) {
     case Connectors.Injected:
+      if (!ethereum) return void 0
+
+      const chainId: ChainId = DEFAULT_CHAIN_ID
       try {
         // check if the chain to connect to is installed
         ethereum.request({
@@ -44,7 +44,7 @@ export function setNetwork() {
       break
 
     case Connectors.BSC:
-      binance.switchNetwork(isMainnet ? 'bsc-mainnet' : 'bsc-testnet')
+      if (binance) binance.switchNetwork(isMainnet ? 'bsc-mainnet' : 'bsc-testnet')
       break
   }
 }

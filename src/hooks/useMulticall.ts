@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import { Addresses } from '@/constants'
 import { MulticallContract } from '@/contracts'
 import { Interface } from '@/libs/web3'
@@ -9,7 +9,7 @@ export function useMulticall(contractAbi: any[]) {
   const multicallInterface = new Interface(contractAbi)
 
   // __FUNCTIONS
-  const hancleCalls = useCallback(async (calls: Call[]) => {
+  const handleCalls = useCallback(async (calls: Call[]) => {
     try {
       const callData = calls.map(({ address, method, params }) => ({
         target: address,
@@ -28,7 +28,7 @@ export function useMulticall(contractAbi: any[]) {
   }, [])
 
   // __RETURN
-  return [hancleCalls]
+  return useMemo(() => handleCalls, [handleCalls])
 }
 
 export interface Call {

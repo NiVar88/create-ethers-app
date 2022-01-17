@@ -38,6 +38,18 @@
       }
     }
   }
+
+  &-notice {
+    &-network {
+      line-height: 1.4;
+      
+      .btn-switch {
+        .text {
+          color: $color-hunt-2;
+        }
+      }
+    }
+  }
 }
 
 .walletconnect {

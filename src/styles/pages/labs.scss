@@ -22,4 +22,16 @@
       }
     }
   }
+
+  &-json {
+    pre {
+      width: fit-content;
+      margin: 0 auto;
+      padding: 2rem;
+      color: var(--color-hunt-1);
+      background-color: shade($color-secondary, 15%);
+      border-radius: $border-radius-medium;
+      box-shadow: 0 0 0 1px var(--color-hunt-4);
+    }
+  }
 }

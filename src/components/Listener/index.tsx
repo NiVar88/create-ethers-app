@@ -1,40 +1,58 @@
-import { useEffect } from 'react'
-import { useWeb3React as useWeb3ReactCore } from '@web3-react/core'
-import { APP_CHAIN_ID } from '@/libs/configs'
-import { isEqual, notice } from '@/utils'
+import { useCallback, useEffect } from 'react'
+import { APP_CHAIN_ID, isMainnet } from '@/libs/configs'
 import { authService } from '@/services/auth.service'
+import { isEqual, notice, setNetwork } from '@/utils'
 
 export function WalletListener() {
-  // __STATE <React.Hooks>
-  const { chainId } = useWeb3ReactCore()
-
   // __EFFECTS <React.Hooks>
   useEffect(() => {
     const provider = window.ethereum || window.BinanceChain
     if (provider) {
-      provider.on('accountsChanged', ([account]: string[]) => {
-        if (account) {
-          authService.setAuthCookies(account)
-          authService.getProfile(account)
-        } else {
-          authService.signout()
-        }
-      })
+      provider.on('chainChanged', chainChange)
+      provider.on('accountsChanged', accountChange)
     }
   }, [])
 
-  useEffect(() => {
-    if (isEqual(chainId, APP_CHAIN_ID)) {
+  // __FUNCTIONS
+  const chainChange = useCallback((chainId: string) => {
+    if (isEqual(+chainId, APP_CHAIN_ID)) {
       notice.clear()
     } else {
       notice.error({
         title: 'Network not support!',
-        content: '-',
+        content: <SwitchNetwork />,
         duration: 0
       })
     }
-  }, [chainId])
+  }, [])
+
+  const accountChange = useCallback(([account]: string[]) => {
+    if (account) {
+      authService.setAuthCookies(account)
+      authService.getProfile(account)
+    } else {
+      authService.signout()
+    }
+  }, [])
 
   // __RENDER
   return null
+}
+
+export function SwitchNetwork() {
+  // __RENDER
+  return (
+    <div className='ui--notice-network'>
+      <p>
+        Application is only supported on <b>{isMainnet ? 'Binance Smart Chain' : 'BSC Testnet'}</b>
+      </p>
+
+      <p>
+        Switch Network:{' '}
+        <button className='btn btn-text btn-switch' onClick={setNetwork}>
+          <span className='text'>Click here</span>
+        </button>
+      </p>
+    </div>
+  )
 }

@@ -1,5 +1,4 @@
-import Web3, { AbiItem, isAddress } from '@/libs/web3'
-import { getRpcUrl } from '@/constants'
+import { AbiItem, GivenProvider, isAddress } from '@/libs/web3'
 import {
   ERC20Interface,
   ERC721Interface,
@@ -15,18 +14,6 @@ import MULTICALL_ABI from './abis/Multicall.json'
 import PANCAKE_ROUTER_ABI from './abis/PancakeRouter.json'
 
 export { ERC20_ABI, ERC721_ABI, MASTERCHEF_ABI, MULTICALL_ABI, PANCAKE_ROUTER_ABI }
-
-/**
- * Create web3 provider instance.
- */
-export function GivenProvider() {
-  if (Web3.givenProvider) {
-    return new Web3(Web3.givenProvider).eth
-  } else {
-    const rpc = getRpcUrl()
-    return new Web3(rpc).eth
-  }
-}
 
 /**
  * Create contract factory.

@@ -2,17 +2,6 @@ import { ChainId, Token } from '@/types'
 import { setAddress } from './utils'
 
 export const Tokens: Record<string, Token> = {
-  BTCB: {
-    id: '.btcb',
-    icon: '/static/images/coins/BTC.svg',
-    name: 'Binance BTC',
-    symbol: 'BTCB',
-    address: setAddress({
-      [ChainId.BSC]: null,
-      [ChainId.BSC_TESTNET]: '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c'
-    })
-  },
-
   BNB: {
     id: '.bnb',
     icon: '/static/images/coins/BNB.svg',
@@ -33,6 +22,17 @@ export const Tokens: Record<string, Token> = {
     address: setAddress({
       [ChainId.BSC]: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
       [ChainId.BSC_TESTNET]: '0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd'
+    })
+  },
+
+  BTCB: {
+    id: '.btcb',
+    icon: '/static/images/coins/BTC.svg',
+    name: 'Binance BTC',
+    symbol: 'BTCB',
+    address: setAddress({
+      [ChainId.BSC]: null,
+      [ChainId.BSC_TESTNET]: '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c'
     })
   },
 

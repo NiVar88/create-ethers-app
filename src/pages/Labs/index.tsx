@@ -4,20 +4,24 @@ import { ERC20_ABI } from '@/contracts'
 import { useMulticall, useWeb3ReactCore } from '@/hooks'
 import { dialog, Fraction, modal, notice } from '@/utils'
 import '@styles/pages/labs.scss'
+import { useAppSelector, userSelector } from '@/store'
 
 export default function LabsContainer() {
   // __STATE <React.Hooks>
   const { account } = useWeb3ReactCore()
-  const [handleCalls] = useMulticall(ERC20_ABI)
+  const multiCalls = useMulticall(ERC20_ABI)
+  const currencyBalance = useAppSelector(userSelector.getCurrencyBalance)
 
   // __EFFECTS <Rect.Hooks>
-  useEffect(() => {}, [])
+  useEffect(() => {
+    // if (account) {}
+  }, [account])
 
   // __FUNCTIONS
   const handleAction = useCallback(async () => {
     if (!account) return void 0
 
-    const results = await handleCalls([
+    const results = await multiCalls([
       {
         address: '0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd',
         method: 'balanceOf',
@@ -36,7 +40,7 @@ export default function LabsContainer() {
         console.log(balance.toString())
       }
     }
-  }, [handleCalls, account])
+  }, [account, multiCalls])
 
   const handleDialog = useCallback(async () => {
     const results = await dialog(Dialog.DEMO, { type: 'confirm' })
@@ -73,6 +77,10 @@ export default function LabsContainer() {
           <button className='btn btn-primary' onClick={handleNotice}>
             <span className='text'>NOTICE</span>
           </button>
+        </div>
+
+        <div className='ui--labs-json'>
+          <pre>{JSON.stringify(currencyBalance, null, 2)}</pre>
         </div>
       </div>
     </div>

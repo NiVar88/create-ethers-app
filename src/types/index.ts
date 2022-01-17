@@ -25,7 +25,12 @@ export interface NaticeCoin {
   allowance: number
 }
 
+export interface CurrencyBalance {
+  symbol: string
+  value: string
+}
+
 export interface CurrencyInputCallback {
-  value: Fraction
   currency: Token
+  value: Fraction
 }
