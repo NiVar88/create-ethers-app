@@ -2,9 +2,9 @@ import { useCallback, useEffect } from 'react'
 import { UseDialog as Dialog } from '@/constants'
 import { ERC20_ABI } from '@/contracts'
 import { useMulticall, useWeb3ReactCore } from '@/hooks'
+import { useAppSelector, userSelector } from '@/store'
 import { dialog, Fraction, modal, notice } from '@/utils'
 import '@styles/pages/labs.scss'
-import { useAppSelector, userSelector } from '@/store'
 
 export default function LabsContainer() {
   // __STATE <React.Hooks>

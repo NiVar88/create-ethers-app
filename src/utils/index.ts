@@ -104,3 +104,24 @@ export function capitalize(input: string): string {
     })
     .join(' ')
 }
+
+/**
+ * Calculate timing start to end.
+ */
+export function differenceTiming() {
+  const start = Date.now()
+
+  return () => {
+    const seconds = Date.now() - start
+    switch (true) {
+      case seconds / 1e3 > 60:
+        return `~ ${(seconds / 1e3 / 60).toFixed(3)}m`
+
+      case seconds > 1:
+        return `~ ${(seconds / 1e3).toFixed(3)}s`
+
+      default:
+        return `~ ${seconds}ms`
+    }
+  }
+}

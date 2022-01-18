@@ -4,7 +4,7 @@ import { CurrencyBalance, User } from '@/types'
 
 export enum ActionTypes {
   SET_AUTH = 'SET_USER_AUTHENTICATED',
-  SET_PROFILE = 'SET_USER_USER_PROFILE',
+  SET_PROFILE = 'SET_USER_PROFILE',
   SET_GAS = 'SET_USER_GAS_PRICE',
   SET_CURRENCY_BALANCE = 'SET_USER_CURRENCY_BALANCE'
 }
