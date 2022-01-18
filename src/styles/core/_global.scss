@@ -19,6 +19,13 @@
 
 // SET global classes.
 .ui- {
+  &-wrapper {
+    background-image: url('/static/images/bg.png');
+    background-position: center bottom;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
   &-layout {
     &-wrapper {
       display: grid;
