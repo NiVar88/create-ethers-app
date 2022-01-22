@@ -1,1 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 424"><defs><style>.cls-1{fill:#23292f;}</style></defs><title>x</title><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M437,0h74L357,152.48c-55.77,55.19-146.19,55.19-202,0L.94,0H75L192,115.83a91.11,91.11,0,0,0,127.91,0Z"/><path class="cls-1" d="M74.05,424H0L155,270.58c55.77-55.19,146.19-55.19,202,0L512,424H438L320,307.23a91.11,91.11,0,0,0-127.91,0Z"/></g></g></svg>
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Coins/XRP">
+<circle id="Ellipse 1" cx="24" cy="24" r="23.5" fill="white" stroke="#E0E0E0"/>
+<g id="xrp-xrp-logo 1" clip-path="url(#clip0_114_411)">
+<g id="Layer 2">
+<g id="Layer 1">
+<path id="Vector" d="M34.6056 11.625H38.9415L29.9181 20.5594C26.6503 23.7932 21.3522 23.7932 18.0821 20.5594L9.05518 11.625H13.3946L20.2501 18.4119C21.2489 19.3964 22.595 19.9482 23.9975 19.9482C25.3999 19.9482 26.746 19.3964 27.7448 18.4119L34.6056 11.625Z" fill="#23292F"/>
+<path id="Vector_2" d="M13.3389 36.4688H9L18.082 27.4793C21.3498 24.2455 26.6479 24.2455 29.918 27.4793L39 36.4688H34.6641L27.75 29.6268C26.7512 28.6423 25.4051 28.0905 24.0026 28.0905C22.6002 28.0905 21.2541 28.6423 20.2553 29.6268L13.3389 36.4688Z" fill="#23292F"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_114_411">
+<rect width="30" height="24.8438" fill="white" transform="translate(9 11.625)"/>
+</clipPath>
+</defs>
+</svg>

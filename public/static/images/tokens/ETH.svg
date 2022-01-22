@@ -1,7 +1,17 @@
-<?xml version="1.0" ?><svg height="256" viewBox="0 0 256 256" width="256" xmlns="http://www.w3.org/2000/svg"><defs><style>
-.cls-1 {fill: #e6e9f2;}
-.cls-2 {fill: #828384;}
-.cls-2, .cls-3, .cls-4 {fill-rule: evenodd;}
-.cls-3 {fill: #2f3030;}
-.cls-4 {fill: #131313; opacity: 0.8;}
- </style></defs><g data-name="etherium eth ethcoin crypto" id="etherium_eth_ethcoin_crypto"><g data-name="etherium eth" id="etherium_eth"><circle class="cls-1" cx="128" cy="128" data-name="Ellipsis 9" id="Ellipsis_9" r="128"/><path class="cls-2" d="M1144.2,652L1080,758.641l64.2,38.144,63.8-38.144ZM1080,771.355l64.2,37.735,63.8-37.735L1144.2,862Z" transform="translate(-1016 -629)"/><path class="cls-3" d="M1144.2,796.539V652l63.62,106.339Zm63.41-25.044L1144.2,862V809.256Z" transform="translate(-1016 -629)"/><path class="cls-4" d="M1144.2,729.93L1080,758.641l64.2,38.144,63.8-38.144Z" transform="translate(-1016 -629)"/></g></g></svg>
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Coins/ETH">
+<circle id="Ellipse 1" cx="24" cy="24" r="23.5" fill="white" stroke="#E0E0E0"/>
+<g id="Layer_x0020_1">
+<g id="_1421394342400">
+<g id="Group">
+<path id="Vector" d="M23.9529 7.125L23.7264 7.89413V30.2104L23.9529 30.4363L34.3116 24.3131L23.9529 7.125Z" fill="#343434"/>
+<path id="Vector_2" d="M23.9528 7.125L13.5938 24.3131L23.9528 30.4363V19.6046V7.125Z" fill="#8C8C8C"/>
+<path id="Vector_3" d="M23.9529 32.3974L23.8253 32.5531V40.5024L23.9529 40.875L34.318 26.2775L23.9529 32.3974Z" fill="#3C3C3B"/>
+<path id="Vector_4" d="M23.9528 40.875V32.3974L13.5938 26.2775L23.9528 40.875Z" fill="#8C8C8C"/>
+<path id="Vector_5" d="M23.9531 30.4364L34.3119 24.3133L23.9531 19.6047V30.4364Z" fill="#141414"/>
+<path id="Vector_6" d="M13.5938 24.3133L23.9528 30.4364V19.6047L13.5938 24.3133Z" fill="#393939"/>
+</g>
+</g>
+</g>
+</g>
+</svg>

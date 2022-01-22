@@ -4,7 +4,7 @@ import { setAddress } from './utils'
 export const Tokens: Record<string, Token> = {
   BNB: {
     id: '.bnb',
-    icon: '/static/images/coins/BNB.svg',
+    icon: '/static/images/tokens/BNB.svg',
     name: 'BNB',
     symbol: 'BNB',
     address: setAddress({
@@ -16,7 +16,7 @@ export const Tokens: Record<string, Token> = {
 
   WBNB: {
     id: '.wbnb',
-    icon: '/static/images/coins/BNB.svg',
+    icon: '/static/images/tokens/BNB.svg',
     name: 'Wrapped BNB',
     symbol: 'WBNB',
     address: setAddress({
@@ -27,7 +27,7 @@ export const Tokens: Record<string, Token> = {
 
   BTCB: {
     id: '.btcb',
-    icon: '/static/images/coins/BTC.svg',
+    icon: '/static/images/tokens/BTC.svg',
     name: 'Binance BTC',
     symbol: 'BTCB',
     address: setAddress({
@@ -38,7 +38,7 @@ export const Tokens: Record<string, Token> = {
 
   BUSD: {
     id: '.busd',
-    icon: '/static/images/coins/BUSD.svg',
+    icon: '/static/images/tokens/BUSD.svg',
     name: 'Binance-Peg BUSD Token (BUSD)',
     symbol: 'BUSD',
     address: setAddress({
@@ -49,7 +49,7 @@ export const Tokens: Record<string, Token> = {
 
   USDT: {
     id: '.usdt',
-    icon: '/static/images/coins/USDT.svg',
+    icon: '/static/images/tokens/USDT.svg',
     name: 'Binance-Peg BSC-USD (BSC-USD)',
     symbol: 'USDT',
     address: setAddress({
@@ -60,7 +60,7 @@ export const Tokens: Record<string, Token> = {
 
   ETH: {
     id: '.eth',
-    icon: '/static/images/coins/ETH.svg',
+    icon: '/static/images/tokens/ETH.svg',
     name: 'ETH Token',
     symbol: 'ETH',
     address: setAddress({
@@ -71,7 +71,7 @@ export const Tokens: Record<string, Token> = {
 
   DAI: {
     id: '.dai',
-    icon: '/static/images/coins/DAI.svg',
+    icon: '/static/images/tokens/DAI.svg',
     name: 'DAI Token',
     symbol: 'DAI',
     address: setAddress({
@@ -82,7 +82,7 @@ export const Tokens: Record<string, Token> = {
 
   CAKE: {
     id: '.cake',
-    icon: '/static/images/coins/CAKE.svg',
+    icon: '/static/images/tokens/CAKE.svg',
     name: 'PancakeSwap Token',
     symbol: 'CAKE',
     address: setAddress({
@@ -93,7 +93,7 @@ export const Tokens: Record<string, Token> = {
 
   DOGE: {
     id: '.doge',
-    icon: '/static/images/coins/DOGE.svg',
+    icon: '/static/images/tokens/DOGE.svg',
     name: 'Binance-Peg Dogecoin',
     symbol: 'DOGE',
     address: setAddress({
@@ -104,7 +104,7 @@ export const Tokens: Record<string, Token> = {
 
   DOT: {
     id: '.dot',
-    icon: '/static/images/coins/DOT.svg',
+    icon: '/static/images/tokens/DOT.svg',
     name: 'Binance-Peg Polkadot Token',
     symbol: 'DOT',
     address: setAddress({
@@ -115,7 +115,7 @@ export const Tokens: Record<string, Token> = {
 
   LTC: {
     id: '.ltc',
-    icon: '/static/images/coins/LTC.svg',
+    icon: '/static/images/tokens/LTC.svg',
     name: 'Binance-Peg Litecoin Token',
     symbol: 'LTC',
     address: setAddress({
@@ -126,7 +126,7 @@ export const Tokens: Record<string, Token> = {
 
   LINK: {
     id: '.link',
-    icon: '/static/images/coins/LINK.svg',
+    icon: '/static/images/tokens/LINK.svg',
     name: 'Binance-Peg ChainLink Token',
     symbol: 'LINK',
     address: setAddress({
@@ -137,7 +137,7 @@ export const Tokens: Record<string, Token> = {
 
   SHIB: {
     id: '.shib',
-    icon: '/static/images/coins/SHIBA.svg',
+    icon: '/static/images/tokens/SHIBA.svg',
     name: 'Binance-Peg Shiba Token',
     symbol: 'SHIB',
     address: setAddress({
@@ -148,7 +148,7 @@ export const Tokens: Record<string, Token> = {
 
   LUNA: {
     id: '.luna',
-    icon: '/static/images/coins/LUNA.svg',
+    icon: '/static/images/tokens/LUNA.svg',
     name: 'Binance-Peg LUNA Token',
     symbol: 'LUNA',
     address: setAddress({
@@ -159,7 +159,7 @@ export const Tokens: Record<string, Token> = {
 
   AVAX: {
     id: '.avax',
-    icon: '/static/images/coins/AVAX.svg',
+    icon: '/static/images/tokens/AVAX.svg',
     name: 'Binance-Peg AVAX Token',
     symbol: 'AVAX',
     address: setAddress({
@@ -170,7 +170,7 @@ export const Tokens: Record<string, Token> = {
 
   PEACH: {
     id: '.peach',
-    icon: '/static/images/coins/PEACH.svg',
+    icon: '/static/images/tokens/PEACH.svg',
     name: 'PEACH Token',
     symbol: 'PEACH',
     address: setAddress({

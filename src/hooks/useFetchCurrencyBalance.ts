@@ -5,6 +5,7 @@ import { ERC20_ABI } from '@/contracts'
 import { useMulticall } from '@/hooks'
 import { useAppDispatch, userActions } from '@/store'
 import { differenceTiming, Fraction, getBNBBalance, logger } from '@/utils'
+import { Token } from '@/types'
 
 export function useFetchCurrencyBalance(refreshTime: number = 1e5) {
   // __STATE <React.Hooks>
@@ -14,23 +15,27 @@ export function useFetchCurrencyBalance(refreshTime: number = 1e5) {
 
   // __EFFECTS <React.Hooks>
   useEffect(() => {
-    if (account) handleFetch(account)
-  }, [account])
+    if (account && refreshTime) {
+      handleFetch(account)
+      setTimeout(() => handleFetch(account), refreshTime)
+    }
+  }, [account, refreshTime])
 
   // __FUNCTIONS
   const handleFetch = useCallback(
-    async (account: string) => {
+    async (account: string, currencies: Token[] = tokens) => {
       logger.log('🚀 Currency Balance Fetching...')
 
       const timing = differenceTiming()
       const ignore = ['BNB', 'BTCB']
-      const currencies = tokens.filter(({ address, symbol }) => !!address && ignore.indexOf(symbol) < 0)
       const results = await multiCalls(
-        currencies.map((currency) => ({
-          address: currency.address,
-          method: 'balanceOf',
-          params: [account]
-        }))
+        currencies
+          .filter(({ address, symbol }) => !!address && ignore.indexOf(symbol) < 0)
+          .map((currency) => ({
+            address: currency.address,
+            method: 'balanceOf',
+            params: [account]
+          }))
       )
 
       if (results) {
@@ -47,7 +52,6 @@ export function useFetchCurrencyBalance(refreshTime: number = 1e5) {
         dispatch(userActions.setCurrencyBalance(payload))
 
         logger.log('✅ Currency Balance Updated.', timing())
-        setTimeout(() => handleFetch(account), refreshTime)
       }
     },
     [dispatch]

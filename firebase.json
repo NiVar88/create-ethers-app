@@ -4,7 +4,7 @@
     "ignore": [
       "**/node_modules/**",
       "**/.*",
-      "craco.config.js",
+      "craco.config.ts",
       "firebase.json",
       "package.json",
       "README.md",
