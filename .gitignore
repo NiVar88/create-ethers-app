@@ -5,6 +5,7 @@
 
 # production
 /dist
+/build
 
 # misc
 .DS_Store
@@ -15,9 +16,9 @@
 .firebase
 
 # local env files
-# .env
-# .env.local
-# .env.*.local
+.env
+.env.local
+.env.*.local
 
 # Log files
 yarn.lock
