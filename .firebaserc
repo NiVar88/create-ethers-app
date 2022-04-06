@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "alice-firebase-project-id"
+  },
+  "targets": {
+    "alice-firebase-project-id": {
+      "hosting": {
+        "production": [
+          "alice"
+        ],
+        "development": [
+          "alice-dev"
+        ]
+      }
+    }
+  }
+}

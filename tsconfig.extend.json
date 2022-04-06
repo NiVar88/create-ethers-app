@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "isolatedModules": false,
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "@Styles/*": [
+        "src/Styles/*"
+      ]
+    },
+    "types": [
+      "node",
+      "react/next",
+      "react-dom/next"
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+// SET global variable
+:root {
+  // Colors
+  --color-red             : #CE0606;
+  --color-orange          : #F2994A;
+  --color-yellow          : #F6CF56;
+  --color-green           : #139C84;
+  --color-blue            : #00CBE7;
+  --color-purple          : #561D79;
+  --color-gold            : #C6BC9D;
+  --color-primary         : #A20A0A;
+  --color-secondary       : #121212;
+
+  // Font
+  --font-family-primary   : 'Source Sans Pro', 'Helvetica Neue', sans-serif;
+  --font-family-code      : Consolas, Menlo, Courier, monospace;
+  --font-size-larger      : 24px;
+  --font-size-large       : 18px;
+  --font-size-medium      : 14px;
+  --font-size-small       : 12px;
+  --font-size-smaller     : 10px;
+  --font-weight-bolder    : 900;
+  --font-weight-bold      : 600;
+  --font-weight-medium    : 400;
+  --font-weight-light     : 300;
+
+  // Border
+  --border-radius-small   : 4px;
+  --border-radius-medium  : 8px;
+  --border-radius-large   : 12px;
+
+  // Animation
+  --animation-time        : 320ms;
+  --transition-time       : 128ms;
+  --cubic-bezier          : cubic-bezier(0.77, 0, 0.175, 1);
+}
