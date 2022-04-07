@@ -1,7 +1,9 @@
 import { useCallback, useState, useTransition } from 'react'
 import { useDifferenceTime } from '@/Hooks'
-import { logger } from '@/Utils'
+import { logger, setCookie } from '@/Utils'
 import '@Styles/pages/labs.scss'
+import { configs } from '@/Constants'
+import { BaseService } from '@/Services/base.service'
 
 export default function LabsContainer() {
   // __STATE <React.Hooks>
@@ -17,6 +19,23 @@ export default function LabsContainer() {
     })
   }, [])
 
+  const handleCookie = useCallback(() => {
+    setCookie(
+      configs.APP_AUTH_ACCESS,
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTY0OTMxODQwMCwiZXhwIjoxNjQ5MTc4MDAwfQ.osHQciT7ZLa9gIxWfsNWGkoOpZJ8N3Ca28sowwmvICg'
+    )
+
+    setCookie(
+      configs.APP_AUTH_REFRESH,
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTY0OTMxODQwMCwiZXhwIjoxNjUxMzM4MDAwfQ.H8x_f202waVbDMJoKKhHjisNYfHLHKSI78wpPagGDWE'
+    )
+  }, [])
+
+  const handleService = useCallback(async () => {
+    const r = await BaseService.get('todos/1')
+    logger.log(r)
+  }, [])
+
   // __EFFECTS
   logger.log(isPadding, dif())
 
@@ -28,9 +47,19 @@ export default function LabsContainer() {
           .ui--labs-container: <b>{count}</b>
         </i>
 
-        <button className='btn btn-primary' onClick={handleClick}>
-          <span className='text'>button</span>
-        </button>
+        <div style={{ display: 'grid', gap: '1rem', gridAutoFlow: 'column' }}>
+          <button className='btn btn-primary' onClick={handleClick}>
+            <span className='text'>button</span>
+          </button>
+
+          <button className='btn btn-primary' onClick={handleCookie}>
+            <span className='text'>set cookies</span>
+          </button>
+
+          <button className='btn btn-primary' onClick={handleService}>
+            <span className='text'>service</span>
+          </button>
+        </div>
       </div>
     </div>
   )

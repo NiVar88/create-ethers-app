@@ -1,97 +1,112 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
-import { addMinutes, addDays, getUnixTime } from 'date-fns'
+import { AxiosInstance, AxiosRequestConfig } from 'axios'
+import { addDays } from 'date-fns'
 import { configs } from '@/Constants'
-import { getCookie, setCookie, cookieOptions } from '@/Utils'
+import { JWT } from '@/Services/jwt.service'
+import { getCookie, setCookie, attrCookie, logger } from '@/Utils'
+import Axios from '@/Utils/axios'
 
 export class BaseService {
-  static axios: AxiosInstance = axios.create({
-    baseURL: configs.APP_API_GATEWAY,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE'
+  static $axios: AxiosInstance = Axios
+
+  static async get<D = any>(url: string, config?: AxiosRequestConfig): Promise<D | void> {
+    const v = await this.verify()
+    if (v) {
+      try {
+        const response = await this.$axios.get<D>(url, config)
+        return response.data
+      } catch (error) {
+        logger.log(error)
+      }
     }
-  })
+  }
+
+  static async post<D = any, T = any>(url: string, data?: T, config?: AxiosRequestConfig): Promise<D | void> {
+    const v = await this.verify()
+    if (v) {
+      try {
+        const response = await this.$axios.post<D>(url, data, config)
+        return response.data
+      } catch (error) {
+        logger.log(error)
+      }
+    }
+  }
+
+  static async put<D = any, T = any>(url: string, data?: T, config?: AxiosRequestConfig): Promise<D | void> {
+    const v = await this.verify()
+    if (v) {
+      try {
+        const response = await this.$axios.put<D>(url, data, config)
+        return response.data
+      } catch (error) {
+        logger.log(error)
+      }
+    }
+  }
+
+  static async patch<D = any, T = any>(url: string, data?: T, config?: AxiosRequestConfig): Promise<D | void> {
+    const v = await this.verify()
+    if (v) {
+      try {
+        const response = await this.$axios.patch<D>(url, data, config)
+        return response.data
+      } catch (error) {
+        logger.log(error)
+      }
+    }
+  }
+
+  static async delete<D = any>(url: string, config?: AxiosRequestConfig): Promise<D | void> {
+    const v = await this.verify()
+    if (v) {
+      try {
+        const response = await this.$axios.delete<D>(url, config)
+        return response.data
+      } catch (error) {
+        logger.log(error)
+      }
+    }
+  }
 
   static async verify(): Promise<boolean> {
     const v = await JWT.audit(configs.APP_AUTH_ACCESS)
     if (!v) {
       const r = await this.refresh()
-      if (!r) return false
+      if (!r) {
+        alert('HTTP/1.1 401 Unauthorized')
+        return false
+      }
     }
 
     return true
   }
 
-  static async get(url: string, config?: AxiosRequestConfig) {
-    const v = await this.verify()
-    if (!v) return void 0
-
-    const r = this.axios.get(url, config)
-    return r
-  }
-
-  static async refresh() {
+  static async refresh(): Promise<boolean> {
     const v = await JWT.audit(configs.APP_AUTH_REFRESH)
 
     if (v) {
       const refreshToken = getCookie(configs.APP_AUTH_REFRESH)
-      const r = await this.axios.post('/auth/accessToken', { refreshToken })
+      const response = await this.$axios.post<{ accessToken: string; refreshToken: string }>('/auth/refreshToken', {
+        refreshToken
+      })
 
-      if (r) {
-        this.axios.interceptors.request.use((requestConfig) => {
-          if (requestConfig.headers) {
-            requestConfig.headers[configs.AUTH_ACCESS] = `bearer ${r.data.accessToken}`
-          }
+      if (response) {
+        const { accessToken, refreshToken } = response.data
 
-          return requestConfig
-        })
+        setCookie(configs.APP_AUTH_ACCESS, accessToken, attrCookie())
 
-        setCookie(configs.APP_AUTH_ACCESS, r.data.accessToken, {
-          ...cookieOptions,
-          expires: addMinutes(new Date(), 90)
-        })
-
-        setCookie(configs.APP_AUTH_REFRESH, r.data.refreshToken, {
-          ...cookieOptions,
-          expires: addDays(new Date(), 6)
-        })
+        setCookie(
+          configs.APP_AUTH_REFRESH,
+          refreshToken,
+          attrCookie({
+            expires: addDays(new Date(), 6)
+          })
+        )
 
         return true
       }
     }
 
-    return void 0
-  }
-}
-
-export class JWT {
-  static async audit(cookieName: string) {
-    const cookie = getCookie(cookieName)
-
-    if (cookie) {
-      const payload = this.decode<{ iat: number; exp: number }>(cookie)
-      const now = getUnixTime(Date.now())
-
-      if (now >= payload.exp) return false
-
-      return payload
-    }
-
     return false
-  }
-
-  static decode<T = any>(token: string): T {
-    const [_, code] = token.split('.')
-    const base64 = code.replace(/-/g, '+').replace(/_/g, '/')
-
-    let payload = Buffer.from(base64, 'base64').toString()
-    payload = decodeURIComponent(
-      payload
-        .split('')
-        .map((c) => `%${('00' + c.charCodeAt(0).toString(16)).slice(-2)}`)
-        .join('')
-    )
-
-    return JSON.parse(payload)
   }
 }

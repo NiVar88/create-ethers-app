@@ -1,10 +1,11 @@
-export { cookies, cookieOptions, getCookie, setCookie, removeCookie } from './cookies'
+export { cookies, attrCookie, getCookie, setCookie, removeCookie } from './cookies'
 export { DefineProperty } from './defineProperty'
 export { dialog } from './dialog'
 export { logger } from './logger'
 export { modal } from './modal'
 export { notice } from './notice'
 export { session, storage } from './storage'
+export { setAddress, getRpcUrl } from './web3'
 
 export function isIE(): boolean {
   return new RegExp('MSIE|Trident').test(navigator.userAgent)

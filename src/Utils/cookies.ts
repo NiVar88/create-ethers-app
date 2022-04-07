@@ -1,11 +1,6 @@
 import JSCookies, { CookieAttributes } from 'js-cookie'
 
 export const cookies = JSCookies
-export const cookieOptions: CookieAttributes = {
-  domain: location.hostname,
-  sameSite: 'strict',
-  secure: true
-}
 
 export function getCookie(name: string, json?: boolean) {
   const results = JSCookies.get(name)
@@ -22,4 +17,13 @@ export function setCookie(name: string, value: string | object, options?: Cookie
 
 export function removeCookie(name: string, options?: CookieAttributes) {
   return JSCookies.remove(name, options)
+}
+
+export function attrCookie(options?: CookieAttributes): CookieAttributes {
+  return {
+    domain: location.hostname,
+    sameSite: 'strict',
+    secure: true,
+    ...options
+  }
 }
