@@ -9,7 +9,6 @@ src               # App entry point.
 └─ Constants      # Initiate constant configs.
 └─ Contracts      # Smart Contracts & ABIs.
 └─ Hooks          # Customs React hooks.
-└─ Libs           # Instance Modules configs.
 └─ Pages          # Application page view.
 └─ Services       # APIs services.
 └─ Styles         # Stylesheet.
