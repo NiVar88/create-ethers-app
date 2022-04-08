@@ -5,13 +5,13 @@ import {
   MasterChefInterface,
   MulticallInterface,
   PancakeRouterInterface
-} from '@/Types/abis'
+} from '@/Types/Abis'
 
-import ERC20_ABI from './abis/ERC20.json'
-import ERC721_ABI from './abis/ERC721.json'
-import MASTERCHEF_ABI from './abis/MasterChef.json'
-import MULTICALL_ABI from './abis/Multicall.json'
-import PANCAKE_ROUTER_ABI from './abis/PancakeRouter.json'
+import ERC20_ABI from './Abis/ERC20.json'
+import ERC721_ABI from './Abis/ERC721.json'
+import MASTERCHEF_ABI from './Abis/MasterChef.json'
+import MULTICALL_ABI from './Abis/Multicall.json'
+import PANCAKE_ROUTER_ABI from './Abis/PancakeRouter.json'
 
 export { ERC20_ABI, ERC721_ABI, MASTERCHEF_ABI, MULTICALL_ABI, PANCAKE_ROUTER_ABI }
 

@@ -1,0 +1,5 @@
+export type { ERC20 as ERC20Interface } from './ERC20'
+export type { ERC721 as ERC721Interface } from './ERC721'
+export type { MasterChef as MasterChefInterface } from './MasterChef'
+export type { Multicall as MulticallInterface } from './Multicall'
+export type { PancakeRouter as PancakeRouterInterface } from './PancakeRouter'
