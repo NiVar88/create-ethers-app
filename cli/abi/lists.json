@@ -1,0 +1,37 @@
+[
+  {
+    "dir": [
+      "/Contracts/Abis",
+      "/Types/Abis"
+    ],
+    "fileName": "ERC20"
+  },
+  {
+    "dir": [
+      "/Contracts/Abis",
+      "/Types/Abis"
+    ],
+    "fileName": "ERC721"
+  },
+  {
+    "dir": [
+      "/Contracts/Abis",
+      "/Types/Abis"
+    ],
+    "fileName": "MasterChef"
+  },
+  {
+    "dir": [
+      "/Contracts/Abis",
+      "/Types/Abis"
+    ],
+    "fileName": "Multicall"
+  },
+  {
+    "dir": [
+      "/Contracts/Abis",
+      "/Types/Abis"
+    ],
+    "fileName": "PancakeRouter"
+  }
+]

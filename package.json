@@ -8,7 +8,9 @@
     "build": "craco build",
     "prebuild": "rimraf dist",
     "deploy": "firebase deploy --only hosting:development",
-    "predeploy": "npm run build"
+    "predeploy": "npm run build",
+    "cli:preload": "node cli/preload",
+    "cli:abi-types": "node cli/abi"
   },
   "dependencies": {
     "@binance-chain/bsc-connector": "^1.0.0",
