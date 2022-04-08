@@ -1,10 +1,11 @@
 const { exec } = require('child_process')
-const { readdirSync } = require('fs')
+const { appendFileSync, readdirSync, writeFileSync } = require('fs')
 const { resolve } = require('path')
 
 const __src = resolve(__dirname, '../src')
 const __dir = [`${__src}/Contracts/Abis`, `${__src}/Types/Abis`]
-const __start = (fileName) => {
+
+const __exec = (fileName) => {
   const command = [`abi-types-generator`, `${__dir[0]}/${fileName}.json`, `--output`, __dir[1], `--name=${fileName}`]
   exec(command.join(' '), (err, stdout) => {
     if (err) {
@@ -16,8 +17,16 @@ const __start = (fileName) => {
   })
 }
 
-const files = readdirSync(__dir[0])
-for (const file of files) {
-  const [fileName] = file.split('.')
-  __start(fileName)
+const __export = (fileName) => {
+  const context = [`export`, `type`, `{ ${fileName} as ${fileName}Interface }`, `from`, `'./${fileName}'`]
+  appendFileSync(`${__dir[1]}/index.ts`, `${context.join(' ')}\n`)
 }
+
+// Start
+writeFileSync(`${__dir[1]}/index.ts`, '')
+readdirSync(__dir[0]).forEach((file) => {
+  const [fileName] = file.split('.')
+
+  __exec(fileName)
+  __export(fileName)
+})
