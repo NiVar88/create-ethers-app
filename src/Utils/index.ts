@@ -1,11 +1,13 @@
+export { connectorsBy, simpleRpcProvider } from './connectors'
 export { cookies, attrCookie, getCookie, setCookie, removeCookie } from './cookies'
 export { DefineProperty } from './defineProperty'
 export { dialog } from './dialog'
+export { Fraction } from './fraction'
 export { logger } from './logger'
 export { modal } from './modal'
 export { notice } from './notice'
 export { session, storage } from './storage'
-export { setAddress, getRpcUrl } from './web3'
+export { setAddress, getRpcUrl, getBNBBalance } from './web3'
 
 export function isIE(): boolean {
   return new RegExp('MSIE|Trident').test(navigator.userAgent)
@@ -117,4 +119,22 @@ export function abbreviateNumber(input: number): number | string {
   }
 
   return value.toFixed(2) + suffixes[suffixNum]
+}
+
+export function differenceTime() {
+  // __STATE <React.Hooks>
+  const start = Date.now()
+
+  // __RETURN
+  return (digits: number = 3) => {
+    const seconds = Date.now() - start
+
+    if (seconds / 1e3 > 60) {
+      return `~ ${(seconds / 1e3 / 60).toFixed(digits)}m`
+    } else if (seconds / 1e3 > 1) {
+      return `~ ${(seconds / 1e3).toFixed(digits)}s`
+    } else {
+      return `~ ${seconds}ms`
+    }
+  }
 }

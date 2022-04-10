@@ -54,3 +54,13 @@ export function getRpcUrl(chainId: ChainId = configs.DEFAULT_CHAIN_ID) {
   const index = Math.floor(Math.random() * RPCS[chainId].length)
   return RPCS[chainId][index]
 }
+
+/**
+ * GET Balance of BNB.
+ *
+ * @param {String} account
+ */
+export async function getBNBBalance(account: string) {
+  const provider = GivenProvider()
+  return await provider.getBalance(account)
+}

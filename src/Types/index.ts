@@ -2,6 +2,7 @@ import { Dialog } from '@/Utils/dialog'
 import { Modal } from '@/Utils/modal'
 import { Notice } from '@/Utils/notice'
 
+export * from './status'
 export { ChainId, SupportedChainId } from './chains'
 export { Connectors } from './connectors'
 
