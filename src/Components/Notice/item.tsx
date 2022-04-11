@@ -16,7 +16,7 @@ export function NoticeItem({ record, icon, onRemove }: NoticeItemProps) {
   const nodeRef = useRef<HTMLDivElement>(null)
   const duration = useMemo(() => record.duration, [])
 
-  // __EFFECTS <React.Hooks>
+  // __EFFECTS
   useEffect(() => {
     if (duration) {
       const timeoutId = setTimeout(() => setVisible(false), duration + 320)

@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { configs } from '@/Constants'
 
 import app from './app/app.reducer'
+import user from './user/user.reducer'
 
 const createReducer = combineReducers({
-  app
+  app,
+  user
 })
 
 const createStore = configureStore({
@@ -27,3 +29,5 @@ export const { dispatch } = createStore
 
 export * as appActions from './app/app.actions'
 export * as appSelector from './app/app.selectors'
+export * as userActions from './user/user.actions'
+export * as userSelector from './user/user.selectors'

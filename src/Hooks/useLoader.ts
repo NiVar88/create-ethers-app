@@ -2,7 +2,20 @@ import { useCallback, useEffect, useMemo } from 'react'
 import { dispatch, appActions } from '@/Collects'
 
 export function useLoader(autoOff: boolean = true, delay: number = 1e3) {
-  // __EFFECTS <React.Hooks>
+  // __FUNCTIONS
+  const handleAction = useCallback((active: boolean, delay: number = 5e2) => {
+    const action = appActions.setLoader(active)
+
+    if (active) {
+      dispatch(action)
+    } else {
+      setTimeout(() => {
+        dispatch(action)
+      }, delay)
+    }
+  }, [])
+
+  // __EFFECTS
   useEffect(() => {
     let timeoutId: any = null
 
@@ -17,19 +30,6 @@ export function useLoader(autoOff: boolean = true, delay: number = 1e3) {
       clearTimeout(timeoutId)
     }
   }, [autoOff, delay])
-
-  // __FUNCTIONS
-  const handleAction = useCallback((active: boolean, delay: number = 5e2) => {
-    const action = appActions.setLoader(active)
-
-    if (active) {
-      dispatch(action)
-    } else {
-      setTimeout(() => {
-        dispatch(action)
-      }, delay)
-    }
-  }, [])
 
   // __RETURN
   return useMemo(

@@ -11,7 +11,7 @@ export function ModalComponent({ title, children }: Props) {
   const rootElm = useRef<HTMLDivElement>(null)
   const [vid, setVid] = useState<string>('')
 
-  // __EFFECTS <React.Hooks>
+  // __EFFECTS
   useEffect(() => {
     if (rootElm.current) {
       const elm = rootElm.current.parentElement!

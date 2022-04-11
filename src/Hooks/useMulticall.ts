@@ -1,12 +1,12 @@
 import { useCallback, useMemo } from 'react'
-import { Addresses } from '@/constants'
-import { MulticallContract } from '@/contracts'
-import { Interface } from '@/libs/web3'
+import { Addresses } from '@/Constants'
+import { MulticallContract } from '@/Contracts'
+import { Interface } from '@/Utils/web3'
 
-export function useMulticall(contractAbi: any[]) {
+export function useMulticall(contractAbi: any[]): Callback {
   // __STATE <React.Hooks>
-  const { methods: multicallContract } = MulticallContract.build(Addresses.multicall)
-  const multicallInterface = new Interface(contractAbi)
+  const multicallContract = useMemo(() => MulticallContract.build(Addresses.multicall), [])
+  const multicallInterface = useMemo(() => new Interface(contractAbi), [])
 
   // __FUNCTIONS
   const handleCalls = useCallback(async (calls: Call[]) => {
@@ -47,3 +47,10 @@ export interface Call {
    */
   params?: any[]
 }
+
+export interface ReturnData {
+  address: string
+  value: any
+}
+
+export type Callback = (calls: Call[]) => Promise<ReturnData[] | void>

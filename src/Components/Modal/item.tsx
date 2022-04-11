@@ -16,7 +16,7 @@ export function ModalItem({ vid, index, visible, className, children, onExited }
   const [state, setState] = useState(false)
   const nodeRef = useRef<HTMLDivElement>(null)
 
-  // __EFFECTS <React.Hooks>
+  // __EFFECTS
   useEffect(() => {
     setTimeout(() => setState(visible), 64)
   }, [visible])

@@ -11,7 +11,7 @@ export function useEagerConnect() {
   const { account } = useWeb3ReactCore()
   const { signin } = useAuth()
 
-  // __EFFECTS <React.Hooks>
+  // __EFFECTS
   useEffect(() => {
     if (account) {
       AuthService.setAuthCookies(account)

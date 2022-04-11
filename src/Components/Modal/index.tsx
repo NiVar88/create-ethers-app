@@ -11,7 +11,19 @@ export function ModalContainer() {
   const dispatch = useDispatch()
   const modals = useSelector(appSelector.getModal)
 
-  // __EFFECTS <React.Hooks>
+  // __FUNCTIONS
+  const handleExited = useCallback((vid: string) => {
+    const action = appActions.setModal({
+      vid: `rm:${vid}`,
+      visible: false,
+      children: null
+    })
+
+    dispatch(action)
+    scrollOff(false)
+  }, [])
+
+  // __EFFECTS
   useEffect(() => {
     function listener({ code }: KeyboardEvent) {
       if (code === 'Escape') {
@@ -27,18 +39,6 @@ export function ModalContainer() {
       removeEventListener('keydown', listener)
     }
   }, [modals])
-
-  // __FUNCTIONS
-  const handleExited = useCallback((vid: string) => {
-    const action = appActions.setModal({
-      vid: `rm:${vid}`,
-      visible: false,
-      children: null
-    })
-
-    dispatch(action)
-    scrollOff(false)
-  }, [])
 
   // __RENDER
   return (

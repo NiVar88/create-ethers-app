@@ -12,13 +12,6 @@ export function useAuth() {
   const { active, activate, deactivate } = useWeb3ReactCore()
   const [state, setState] = useState<Connectors>()
 
-  // __EFFECTS <React.Hooks>
-  useEffect(() => {
-    if (active && state) {
-      setCookie(configs.APP_USER_CONNECTOR, state)
-    }
-  }, [active, state])
-
   // __FUNCTIONS
   const signin = useCallback(
     async (connectorName: Connectors) => {
@@ -53,6 +46,13 @@ export function useAuth() {
     AuthService.signout()
     deactivate()
   }, [deactivate])
+
+  // __EFFECTS
+  useEffect(() => {
+    if (active && state) {
+      setCookie(configs.APP_USER_CONNECTOR, state)
+    }
+  }, [active, state])
 
   return useMemo(() => ({ signin, signout }), [signin, signout])
 }

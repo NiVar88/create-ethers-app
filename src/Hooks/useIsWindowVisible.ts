@@ -10,7 +10,7 @@ export function useIsWindowVisible() {
   // __STATE <React.Hooks>
   const [isVisible, setIsVisible] = useState(isWindowVisible)
 
-  // __EFFECTS <React.Hooks>
+  // __EFFECTS
   useEffect(() => {
     function listener() {
       if (!VISIBILITY_STATE_SUPPORTED) return void 0

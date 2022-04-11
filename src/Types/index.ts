@@ -20,3 +20,8 @@ export enum IDialog {
 export enum IModal {
   CONNECT_WALLET = '@MODAL:CONNECT_WALLET'
 }
+
+export interface CurrencyBalance {
+  symbol: string
+  value: string
+}

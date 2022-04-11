@@ -21,11 +21,6 @@ export function useApproveCallback(address: string, spender: string): ApproveCal
 
   const allowance = useTokenAllowance(address, spender)
 
-  // __EFFECTS <React.Hooks>
-  useEffect(() => {
-    if (allowance.isZero() || allowance.isNaN()) setApproveStatus(ApproveStatus.NOT_APPROVED)
-  }, [allowance])
-
   // __FUNCTIONS
   const approve = useCallback(async (): Promise<void> => {
     if (!account) return void 0
@@ -51,6 +46,11 @@ export function useApproveCallback(address: string, spender: string): ApproveCal
       throw error
     }
   }, [account, address, approveStatus])
+
+  // __EFFECTS
+  useEffect(() => {
+    if (allowance.isZero() || allowance.isNaN()) setApproveStatus(ApproveStatus.NOT_APPROVED)
+  }, [allowance])
 
   // __RETUEN
   return useMemo(() => [approve, approveStatus], [approve, approveStatus])

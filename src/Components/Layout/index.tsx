@@ -4,9 +4,9 @@ import { FooterComponent, HeaderComponent } from '@/Components'
 export function LayoutWrapper() {
   // __STATE <React.Hooks>
 
-  // __EFFECTS <React.Hooks>
-
   // __FUNCTIONS
+
+  // __EFFECTS
 
   // __RENDER
   return (

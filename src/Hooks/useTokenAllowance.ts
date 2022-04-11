@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useWeb3React as useWeb3ReactCore } from '@web3-react/core'
-import { ERC20Contract } from '@/contracts'
-import { Fraction } from '@/utils'
+import { ERC20Contract } from '@/Contracts'
+import { Fraction } from '@/Utils'
 
 /**
  * GET: Token Allowance.
@@ -14,18 +14,13 @@ export function useTokenAllowance(address: string, spender: string) {
   const { account } = useWeb3ReactCore()
   const [state, setState] = useState<Fraction>(Fraction.ZERO)
 
-  // __EFFECTS <React.Hooks>
-  useEffect(() => {
-    if (account) getAllowance()
-  }, [account, address])
-
   // __FUNCTIONS
   const getAllowance = useCallback(async () => {
     if (!account) return void 0
 
     try {
       const contract = ERC20Contract.build(address)
-      const response = await contract.methods.allowance(account, spender).call()
+      const response = await contract.allowance(account, spender).call()
       const vaule = Fraction.from(response)
 
       setState(vaule)
@@ -33,6 +28,11 @@ export function useTokenAllowance(address: string, spender: string) {
       console.error('`useTokenAllowance`', error)
     }
   }, [account, address, spender])
+
+  // __EFFECTS
+  useEffect(() => {
+    if (account) getAllowance()
+  }, [account, address])
 
   // __RETURN
   return useMemo(() => state, [account, state])

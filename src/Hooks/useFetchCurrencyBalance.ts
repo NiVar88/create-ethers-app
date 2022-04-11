@@ -52,7 +52,7 @@ export function useFetchCurrencyBalance(refreshTimeMs: number = 1e5) {
     [dispatch]
   )
 
-  // __EFFECTS <React.Hooks>
+  // __EFFECTS
   useEffect(() => {
     if (account && refreshTimeMs) {
       handleFetch(account)
