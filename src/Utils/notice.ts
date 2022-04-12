@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { dispatch, appActions } from '@/Collects'
+import { dispatch, appActions } from '@/Store'
 
 export interface Notice {
   vid: string

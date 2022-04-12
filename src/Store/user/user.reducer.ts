@@ -15,6 +15,6 @@ export default createReducer(initialState, (builder) => {
       state.gasPrice = parseUnits(payload, 'gwei').toString()
     })
     .addCase(setCurrencyBalance, (state, { payload }) => {
-      state.currencyBalances = [...state.currencyBalances, ...payload]
+      state.currencyBalances = payload
     })
 })

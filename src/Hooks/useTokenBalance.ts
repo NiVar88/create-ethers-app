@@ -19,7 +19,7 @@ export function useTokenBalance({ address }: Token) {
     if (!account) return void 0
 
     try {
-      const contract = ERC20Contract.build(address)
+      const { methods: contract } = ERC20Contract.build(address)
       const response = await contract.balanceOf(account).call()
       const vaule = Fraction.from(response)
 

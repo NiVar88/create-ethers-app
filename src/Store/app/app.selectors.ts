@@ -1,4 +1,4 @@
-import { StoreTypes } from '@/Collects'
+import { StoreTypes } from '@/Store'
 
 export function getAppVersion({ app: { appVersion } }: StoreTypes) {
   return appVersion

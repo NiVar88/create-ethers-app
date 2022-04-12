@@ -1,16 +1,18 @@
 import { useCallback, useState, useTransition } from 'react'
-import { useDifferenceTime } from '@/Hooks'
-import { logger, setCookie } from '@/Utils'
-import '@Styles/pages/labs.scss'
 import { configs } from '@/Constants'
+import { useAuth } from '@/Hooks'
 import { BaseService } from '@/Services/base.service'
+import { setCookie } from '@/Utils'
+import { Connectors } from '@/Types'
+import JWT from 'jsonwebtoken'
+import '@Styles/pages/labs.scss'
 
 export default function LabsContainer() {
   // __STATE <React.Hooks>
   const [count, setCount] = useState<number>(0)
   const [isPadding, startTransition] = useTransition()
 
-  const dif = useDifferenceTime()
+  const { signin } = useAuth()
 
   // __FUNCTIONS
   const handleClick = useCallback(() => {
@@ -20,24 +22,17 @@ export default function LabsContainer() {
   }, [])
 
   const handleCookie = useCallback(() => {
-    setCookie(
-      configs.APP_AUTH_ACCESS,
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTY0OTMxODQwMCwiZXhwIjoxNjQ5MTc4MDAwfQ.osHQciT7ZLa9gIxWfsNWGkoOpZJ8N3Ca28sowwmvICg'
-    )
-
-    setCookie(
-      configs.APP_AUTH_REFRESH,
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTY0OTMxODQwMCwiZXhwIjoxNjUxMzM4MDAwfQ.H8x_f202waVbDMJoKKhHjisNYfHLHKSI78wpPagGDWE'
-    )
+    setCookie(configs.APP_AUTH_ACCESS, JWT.sign({ uid: 1 }, 'secret', { expiresIn: '1h' }))
+    setCookie(configs.APP_AUTH_REFRESH, JWT.sign({ uid: 1 }, 'secret', { expiresIn: '7 days' }))
   }, [])
 
   const handleService = useCallback(async () => {
     const r = await BaseService.get('todos/1')
-    logger.log(r)
+    console.log(r)
   }, [])
 
   // __EFFECTS
-  logger.log(isPadding, dif())
+  // console.log(isPadding)
 
   // __RENDER
   return (
@@ -47,9 +42,13 @@ export default function LabsContainer() {
           .ui--labs-container: <b>{count}</b>
         </i>
 
-        <div style={{ display: 'grid', gap: '1rem', gridAutoFlow: 'column' }}>
+        <div style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(5, auto)' }}>
           <button className='btn btn-primary' onClick={handleClick}>
             <span className='text'>button</span>
+          </button>
+
+          <button className='btn btn-primary' onClick={() => signin(Connectors.Injected)}>
+            <span className='text'>sign-in</span>
           </button>
 
           <button className='btn btn-primary' onClick={handleCookie}>

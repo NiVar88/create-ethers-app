@@ -1,5 +1,5 @@
 import { ReactChild, ReactFragment, ReactPortal } from 'react'
-import { dispatch, appActions } from '@/Collects'
+import { dispatch, appActions } from '@/Store'
 import { generateId } from '@/Utils'
 import { IModal } from '@/Types'
 

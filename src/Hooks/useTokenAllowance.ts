@@ -19,7 +19,7 @@ export function useTokenAllowance(address: string, spender: string) {
     if (!account) return void 0
 
     try {
-      const contract = ERC20Contract.build(address)
+      const { methods: contract } = ERC20Contract.build(address)
       const response = await contract.allowance(account, spender).call()
       const vaule = Fraction.from(response)
 

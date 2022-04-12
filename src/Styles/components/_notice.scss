@@ -40,24 +40,24 @@
 
     .icon {
       margin: 0.88rem 0 0;
-      color: var(--color-arkon-1);
+      color: white;
       font-size: var(--font-size-large);
     }
 
     &.info {
-      background-color: blue;
+      background-color: var(--color-blue);
     }
 
     &.success {
-      background-color: green;
+      background-color: var(--color-green);
     }
 
     &.warn {
-      background-color: orange;
+      background-color: var(--color-orange);
     }
 
     &.error {
-      background-color: red;
+      background-color: var(--color-red);
     }
   }
 
@@ -68,13 +68,13 @@
 
     .title {
       text-transform: capitalize;
-      color: var(--color-orange);
+      color: var(--color-secondary);
       font-weight: var(--font-weight-bold);
     }
 
     .content {
       margin: 0.25rem 0 0;
-      color: var(--color-arkon-4);
+      color: var(--color-secondary);
       font-size: var(--font-size-small);
 
       b {
@@ -94,10 +94,10 @@
       &-close {
         width: 26px;
         height: 26px;
-        color: var(--color-arkon-4);
+        color: var(--color-secondary);
 
         &:hover {
-          color: var(--color-orange);
+          color: var(--color-red);
         }
 
         .icon {

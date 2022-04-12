@@ -1,5 +1,5 @@
 import { ReactChild, ReactFragment, ReactPortal } from 'react'
-import { dispatch, appActions } from '@/Collects'
+import { dispatch, appActions } from '@/Store'
 import { IDialog } from '@/Types'
 
 export type DialogChild = ReactChild | ReactFragment | ReactPortal | IDialog | string

@@ -30,6 +30,10 @@
     border-radius: var(--border-radius-small);
     background-color: var(--color-primary);
 
+    &:hover {
+      filter: brightness(110%);
+    }
+
     .text,
     .icon {
       color: var(--color-secondary);

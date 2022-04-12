@@ -1,6 +1,5 @@
 export interface User {
   uid: number
-  address: string
   role: string
   avatar: string
   name: string

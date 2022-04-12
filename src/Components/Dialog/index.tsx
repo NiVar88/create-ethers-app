@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { CSSTransition } from 'react-transition-group'
-import { useAppDispatch, useAppSelector, appActions, appSelector } from '@/Collects'
+import { useAppDispatch, useAppSelector, appActions, appSelector } from '@/Store'
 import { scrollOff } from '@/Utils'
 import { Dialog } from '@/Types'
 import { getCurrentContant } from './register'

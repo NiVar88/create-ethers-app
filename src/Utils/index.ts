@@ -1,13 +1,19 @@
-export { connectorsBy, simpleRpcProvider } from './connectors'
+import { format } from 'date-fns'
+
+export { getLibrary, connectorsBy, simpleRpcProvider } from './connectors'
 export { cookies, attrCookie, getCookie, setCookie, removeCookie } from './cookies'
 export { DefineProperty } from './defineProperty'
 export { dialog } from './dialog'
 export { Fraction } from './fraction'
-export { logger } from './logger'
 export { modal } from './modal'
 export { notice } from './notice'
 export { session, storage } from './storage'
-export { setAddress, getRpcUrl, getBNBBalance } from './web3'
+export { getBNBBalance } from './web3'
+
+export function vy() {
+  const d = format(Date.now(), 'yyyy-MM-dd hh:mm:ss a')
+  return `[${d}]`
+}
 
 export function isIE(): boolean {
   return new RegExp('MSIE|Trident').test(navigator.userAgent)

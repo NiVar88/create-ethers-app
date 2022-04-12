@@ -2,7 +2,7 @@ import { AxiosInstance, AxiosRequestConfig } from 'axios'
 import { addDays } from 'date-fns'
 import { configs } from '@/Constants'
 import { JWT } from '@/Services/jwt.service'
-import { getCookie, setCookie, attrCookie, logger } from '@/Utils'
+import { getCookie, setCookie, attrCookie } from '@/Utils'
 import Axios from '@/Utils/axios'
 
 export class BaseService {
@@ -15,7 +15,7 @@ export class BaseService {
         const response = await this.$axios.get<D>(url, config)
         return response.data
       } catch (error) {
-        logger.log(error)
+        console.log(error)
       }
     }
   }
@@ -27,7 +27,7 @@ export class BaseService {
         const response = await this.$axios.post<D>(url, data, config)
         return response.data
       } catch (error) {
-        logger.log(error)
+        console.log(error)
       }
     }
   }
@@ -39,7 +39,7 @@ export class BaseService {
         const response = await this.$axios.put<D>(url, data, config)
         return response.data
       } catch (error) {
-        logger.log(error)
+        console.log(error)
       }
     }
   }
@@ -51,7 +51,7 @@ export class BaseService {
         const response = await this.$axios.patch<D>(url, data, config)
         return response.data
       } catch (error) {
-        logger.log(error)
+        console.log(error)
       }
     }
   }
@@ -63,7 +63,7 @@ export class BaseService {
         const response = await this.$axios.delete<D>(url, config)
         return response.data
       } catch (error) {
-        logger.log(error)
+        console.log(error)
       }
     }
   }

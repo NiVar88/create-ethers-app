@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { appActions, appSelector } from '@/Collects'
+import { appActions, appSelector } from '@/Store'
 import { modal, scrollOff } from '@/Utils'
 import { ModalItem } from './item'
 import { getCurrentContant } from './register'

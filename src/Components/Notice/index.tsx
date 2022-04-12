@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react'
-import { useAppDispatch, useAppSelector, appActions, appSelector } from '@/Collects'
+import { useAppDispatch, useAppSelector, appActions, appSelector } from '@/Store'
 import { Notice } from '@/Types'
 import { NoticeItem } from './item'
 

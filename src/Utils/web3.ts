@@ -1,8 +1,8 @@
 import Web3 from 'web3'
 import { utils } from 'ethers'
 import { configs, RPCS } from '@/Constants'
-import { getCookie } from '@/Utils'
 import { Connectors, ChainId } from '@/Types'
+import { getCookie } from './cookies'
 
 export { default } from 'web3'
 export * from 'web3-core'

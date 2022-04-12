@@ -1,23 +1,21 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useDispatch } from 'react-redux'
-import { useWeb3React as useWeb3ReactCore } from '@web3-react/core'
 import { tokens } from '@/Constants'
 import { ERC20_ABI } from '@/Contracts'
 import { useMulticall } from '@/Hooks'
-import { userActions } from '@/Collects'
-import { differenceTime, Fraction, getBNBBalance } from '@/Utils'
+import { userActions } from '@/Store'
+import { vy, differenceTime, Fraction, getBNBBalance } from '@/Utils'
 import { Token } from '@/Types'
 
-export function useFetchCurrencyBalance(refreshTimeMs: number = 1e5) {
+export function useFetchCurrencyBalance(refreshTimeMs: number = 2e5) {
   // __STATE <React.Hooks>
-  const { account } = useWeb3ReactCore()
   const dispatch = useDispatch()
   const multiCalls = useMulticall(ERC20_ABI)
 
   // __FUNCTIONS
-  const handleFetch = useCallback(
+  const func = useCallback(
     async (account: string, currencies: Token[] = tokens) => {
-      console.log('🚀 Currency Balance Fetching...')
+      console.log(vy(), '🚀 Currency Balance Fetching...')
 
       const t = differenceTime()
       const ignore = ['BNB', 'BTCB']
@@ -44,22 +42,16 @@ export function useFetchCurrencyBalance(refreshTimeMs: number = 1e5) {
 
         dispatch(userActions.setCurrencyBalance(payload))
 
-        console.log('✅ Currency Balance Updated.', t())
+        console.log(vy(), '✅ Currency Balance Updated.', t())
+
+        setTimeout(() => func(account), refreshTimeMs)
       } else {
-        console.warn('❌ Currency Balance Fetch Failed.', t())
+        console.warn(vy(), '❌ Currency Balance Fetch Failed.', t())
       }
     },
-    [dispatch]
+    [dispatch, refreshTimeMs]
   )
 
-  // __EFFECTS
-  useEffect(() => {
-    if (account && refreshTimeMs) {
-      handleFetch(account)
-      setTimeout(() => handleFetch(account), refreshTimeMs)
-    }
-  }, [account, refreshTimeMs])
-
   // __RETURN
-  return null
+  return useMemo(() => [func], [func])
 }

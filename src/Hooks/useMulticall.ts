@@ -5,7 +5,7 @@ import { Interface } from '@/Utils/web3'
 
 export function useMulticall(contractAbi: any[]): Callback {
   // __STATE <React.Hooks>
-  const multicallContract = useMemo(() => MulticallContract.build(Addresses.multicall), [])
+  const { methods: multicallContract } = useMemo(() => MulticallContract.build(Addresses.multicall), [])
   const multicallInterface = useMemo(() => new Interface(contractAbi), [])
 
   // __FUNCTIONS

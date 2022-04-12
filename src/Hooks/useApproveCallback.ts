@@ -33,7 +33,7 @@ export function useApproveCallback(address: string, spender: string): ApproveCal
     setApproveStatus(ApproveStatus.PENDING)
 
     try {
-      const contract = ERC20Contract.build(address)
+      const { methods: contract } = ERC20Contract.build(address)
       const func = contract.approve(spender, Fraction.BASE.toString(10))
 
       const gas = await func.estimateGas({ from: account })

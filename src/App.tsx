@@ -1,7 +1,16 @@
 import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { Store } from '@/Collects'
-import { LayoutWrapper, DialogContainer, LoaderContainer, ModalContainer, NoticeContainer } from '@/Components'
+import { Web3ReactProvider } from '@web3-react/core'
+import { Store } from '@/Store'
+import {
+  LayoutWrapper,
+  DialogContainer,
+  LoaderContainer,
+  ModalContainer,
+  NoticeContainer,
+  WatcherContainer
+} from '@/Components'
+import { getLibrary } from '@/Utils'
 
 import Home from '@/Pages/Home'
 import Labs from '@/Pages/Labs'
@@ -9,23 +18,27 @@ import Labs from '@/Pages/Labs'
 export default function Application() {
   // __RENDER
   return (
-    <Provider store={Store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<LayoutWrapper />}>
-            <Route index element={<Home />} />
+    <Web3ReactProvider getLibrary={getLibrary}>
+      <Provider store={Store}>
+        <WatcherContainer />
 
-            <Route path='/Labs' caseSensitive element={<Labs />} />
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<LayoutWrapper />}>
+              <Route index element={<Home />} />
 
-            <Route path='*' element={<Navigate to='/' />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+              <Route path='/Labs' caseSensitive element={<Labs />} />
 
-      <DialogContainer />
-      <ModalContainer />
-      <NoticeContainer />
-      <LoaderContainer />
-    </Provider>
+              <Route path='*' element={<Navigate to='/' />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+
+        <DialogContainer />
+        <ModalContainer />
+        <NoticeContainer />
+        <LoaderContainer />
+      </Provider>
+    </Web3ReactProvider>
   )
 }

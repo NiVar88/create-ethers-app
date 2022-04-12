@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
-import { appSelector } from '@/Collects'
+import { appSelector } from '@/Store'
 import { scrollOff } from '@/Utils'
 
 export function LoaderContainer() {

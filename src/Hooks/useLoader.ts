@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo } from 'react'
-import { dispatch, appActions } from '@/Collects'
+import { dispatch, appActions } from '@/Store'
 
 export function useLoader(autoOff: boolean = true, delay: number = 1e3) {
   // __FUNCTIONS
