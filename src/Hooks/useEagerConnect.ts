@@ -13,7 +13,14 @@ export function useEagerConnect() {
   const func = useCallback(
     async (account?: string | null) => {
       if (account) {
-        await AuthService.getProfile(account)
+        const refreshToken = getCookie(configs.APP_AUTH_REFRESH)
+
+        if (refreshToken) {
+          await AuthService.getProfile(account)
+        } else {
+          await AuthService.signin(account)
+        }
+
         notice.success({
           title: 'Success',
           content: 'Your wallet connected.'

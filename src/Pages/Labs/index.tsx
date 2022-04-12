@@ -22,8 +22,8 @@ export default function LabsContainer() {
   }, [])
 
   const handleCookie = useCallback(() => {
-    setCookie(configs.APP_AUTH_ACCESS, JWT.sign({ uid: 1 }, 'secret', { expiresIn: '1h' }))
-    setCookie(configs.APP_AUTH_REFRESH, JWT.sign({ uid: 1 }, 'secret', { expiresIn: '7 days' }))
+    setCookie(configs.APP_AUTH_ACCESS, JWT.sign({ uid: 1 }, 'S3C23T', { expiresIn: '1h' }))
+    setCookie(configs.APP_AUTH_REFRESH, JWT.sign({ uid: 1 }, 'S3C23T', { expiresIn: '7 days' }))
   }, [])
 
   const handleService = useCallback(async () => {

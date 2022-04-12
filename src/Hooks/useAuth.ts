@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useWeb3React as useWeb3ReactCore, UnsupportedChainIdError } from '@web3-react/core'
 import { NoEthereumProviderError, UserRejectedRequestError } from '@web3-react/injected-connector'
 import { NoBscProviderError } from '@binance-chain/bsc-connector'
@@ -9,8 +9,7 @@ import { Connectors } from '@/Types'
 
 export function useAuth() {
   // __STATE <Rect.Hooks>
-  const { active, activate, deactivate } = useWeb3ReactCore()
-  const [state, setState] = useState<Connectors>()
+  const { activate, deactivate } = useWeb3ReactCore()
 
   // __FUNCTIONS
   const signin = useCallback(
@@ -26,7 +25,6 @@ export function useAuth() {
         return void 0
       }
 
-      setState(connectorName)
       activate(connector, (err: Error) => {
         if (err instanceof UnsupportedChainIdError) {
           console.error(err)
@@ -38,6 +36,8 @@ export function useAuth() {
           notice.warn({ title: 'Something was wrong!', content: 'Please try again.' })
         }
       })
+
+      setCookie(configs.APP_USER_CONNECTOR, connectorName)
     },
     [activate]
   )
@@ -46,13 +46,6 @@ export function useAuth() {
     AuthService.signout()
     deactivate()
   }, [deactivate])
-
-  // __EFFECTS
-  useEffect(() => {
-    if (active && state) {
-      setCookie(configs.APP_USER_CONNECTOR, state)
-    }
-  }, [active, state])
 
   return useMemo(() => ({ signin, signout }), [signin, signout])
 }

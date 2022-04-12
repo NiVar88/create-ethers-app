@@ -15,6 +15,7 @@ declare interface Window {
     on(name: EventNames, callback: (e: any) => void): void
     request: (...args: any[]) => Promise<void>
     switchNetwork: (networkId: 'bsc-mainnet' | 'bsc-testnet') => Promise<any>
+    bnbSign(address: string, message: string): Promise<{ publicKey: string; signature: string }>
   }
 }
 

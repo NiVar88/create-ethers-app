@@ -10,13 +10,13 @@ export function WatcherContainer() {
   // __EFFECTS
   useEffect(() => {
     onEager(account)
-  }, [account, onEager])
+  }, [account])
 
   useEffect(() => {
     if (account) {
       onFetchBalance(account)
     }
-  }, [account, onFetchBalance])
+  }, [account])
 
   // __RETURN
   return null
