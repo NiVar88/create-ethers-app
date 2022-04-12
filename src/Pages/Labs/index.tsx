@@ -42,9 +42,20 @@ export default function LabsContainer() {
           .ui--labs-container: <b>{count}</b>
         </i>
 
-        <div style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(5, auto)' }}>
-          <button className='btn btn-primary' onClick={handleClick}>
+        <div
+          style={{
+            display: 'grid',
+            gap: '1rem',
+            gridAutoFlow: 'dense',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(100px, auto))'
+          }}
+        >
+          <button className='btn btn-primary'>
             <span className='text'>button</span>
+          </button>
+
+          <button className='btn btn-primary' onClick={handleClick}>
+            <span className='text'>button 2</span>
           </button>
 
           <button className='btn btn-primary' onClick={() => signin(Connectors.Injected)}>

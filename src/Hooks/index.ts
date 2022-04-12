@@ -1,7 +1,6 @@
 export { useWeb3React as useWeb3ReactCore } from '@web3-react/core'
 export { useApproveCallback } from './useApproveCallback'
 export { useAuth } from './useAuth'
-export { useEagerConnect } from './useEagerConnect'
 export { useFetchCurrencyBalance } from './useFetchCurrencyBalance'
 export { useIsWindowVisible } from './useIsWindowVisible'
 export { useLoader } from './useLoader'

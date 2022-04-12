@@ -7,7 +7,7 @@ import { userActions } from '@/Store'
 import { vy, differenceTime, Fraction, getBNBBalance } from '@/Utils'
 import { Token } from '@/Types'
 
-export function useFetchCurrencyBalance(refreshTimeMs: number = 2e5) {
+export function useFetchCurrencyBalance() {
   // __STATE <React.Hooks>
   const dispatch = useDispatch()
   const multiCalls = useMulticall(ERC20_ABI)
@@ -43,13 +43,11 @@ export function useFetchCurrencyBalance(refreshTimeMs: number = 2e5) {
         dispatch(userActions.setCurrencyBalance(payload))
 
         console.log(vy(), '✅ Currency Balance Updated.', t())
-
-        setTimeout(() => func(account), refreshTimeMs)
       } else {
         console.warn(vy(), '❌ Currency Balance Fetch Failed.', t())
       }
     },
-    [dispatch, refreshTimeMs]
+    [dispatch]
   )
 
   // __RETURN

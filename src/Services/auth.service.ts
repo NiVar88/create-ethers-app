@@ -27,6 +27,10 @@ export class AuthService extends BaseService {
       setCookie(configs.APP_AUTH_REFRESH, JWT.sign({ uid: 1 }, 'S3C23T', { expiresIn: '7 days' }))
 
       await this.getProfile(address)
+      notice.success({
+        title: 'Success',
+        content: 'Your wallet connected.'
+      })
       // }
     } else {
       notice.warn({
