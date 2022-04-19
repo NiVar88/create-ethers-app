@@ -1,14 +1,9 @@
 {
   "editor.formatOnSave": true,
   "editor.snippetSuggestions": "top",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "files.exclude": {
     "**/dist": false
   },
-  "typescript.tsdk": "node_modules\\typescript\\lib",
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  "typescript.tsdk": "node_modules\\typescript\\lib"
 }

@@ -4,6 +4,7 @@ import { configs } from '@/Constants'
 import { useAuth, useModal } from '@/Hooks'
 import { BaseService } from '@/Services/base.service'
 import { dialog, setCookie } from '@/Utils'
+import { FormLabs } from './Components/form'
 import JWT from 'jsonwebtoken'
 import '@Styles/pages/labs.scss'
 
@@ -60,7 +61,8 @@ export default function LabsContainer() {
             display: 'grid',
             gap: '1rem',
             gridAutoFlow: 'dense',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(100px, auto))'
+            gridTemplateColumns: 'repeat(auto-fill, minmax(100px, auto))',
+            margin: '0 0 2rem'
           }}
         >
           <button className='btn btn-primary' onClick={handleClick}>
@@ -87,6 +89,8 @@ export default function LabsContainer() {
             <span className='text'>service</span>
           </button>
         </div>
+
+        <FormLabs />
       </div>
     </div>
   )
