@@ -2,6 +2,7 @@ export interface User {
   uid: number
   role: string
   avatar: string
+  address: string
   name: string
   bio?: string
   createdAt: string

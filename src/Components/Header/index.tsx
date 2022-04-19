@@ -1,3 +1,5 @@
+import { UserComponent } from './user'
+
 export function HeaderComponent() {
   // __STATE <React.Hooks>
 
@@ -8,7 +10,13 @@ export function HeaderComponent() {
   // __RENDER
   return (
     <header className='ui--header'>
-      <div className='ui--header-container'>.ui--header-container</div>
+      <div className='ui--header-container'>
+        <div className='ui--header-context ltr'>.ui--header-container</div>
+
+        <div className='ui--header-context rtl'>
+          <UserComponent />
+        </div>
+      </div>
     </header>
   )
 }

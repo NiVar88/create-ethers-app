@@ -1,9 +1,9 @@
 import { useCallback, useState, useTransition } from 'react'
+import { ModalComponent } from '@/Components'
 import { configs } from '@/Constants'
-import { useAuth } from '@/Hooks'
+import { useAuth, useModal } from '@/Hooks'
 import { BaseService } from '@/Services/base.service'
-import { setCookie } from '@/Utils'
-import { Connectors } from '@/Types'
+import { dialog, setCookie } from '@/Utils'
 import JWT from 'jsonwebtoken'
 import '@Styles/pages/labs.scss'
 
@@ -12,7 +12,8 @@ export default function LabsContainer() {
   const [count, setCount] = useState<number>(0)
   const [isPadding, startTransition] = useTransition()
 
-  const { signin } = useAuth()
+  const { signout } = useAuth()
+  const modal = useModal({ className: 'modal-labs' })
 
   // __FUNCTIONS
   const handleClick = useCallback(() => {
@@ -20,6 +21,19 @@ export default function LabsContainer() {
       setCount((prev) => prev + 1)
     })
   }, [])
+
+  const handleDialog = useCallback(async () => {
+    const { isConfirmed, isDenied } = await dialog('Content.')
+    console.log({ isConfirmed, isDenied })
+  }, [])
+
+  const handleModal = useCallback(() => {
+    modal.on(
+      <ModalComponent title='Modal Labs'>
+        <i>Content.</i>
+      </ModalComponent>
+    )
+  }, [modal])
 
   const handleCookie = useCallback(() => {
     setCookie(configs.APP_AUTH_ACCESS, JWT.sign({ uid: 1 }, 'S3C23T', { expiresIn: '1h' }))
@@ -32,7 +46,6 @@ export default function LabsContainer() {
   }, [])
 
   // __EFFECTS
-  // console.log(isPadding)
 
   // __RENDER
   return (
@@ -50,16 +63,20 @@ export default function LabsContainer() {
             gridTemplateColumns: 'repeat(auto-fill, minmax(100px, auto))'
           }}
         >
-          <button className='btn btn-primary'>
+          <button className='btn btn-primary' onClick={handleClick}>
             <span className='text'>button</span>
           </button>
 
-          <button className='btn btn-primary' onClick={handleClick}>
-            <span className='text'>button 2</span>
+          <button className='btn btn-primary' onClick={handleDialog}>
+            <span className='text'>dialog</span>
           </button>
 
-          <button className='btn btn-primary' onClick={() => signin(Connectors.Injected)}>
-            <span className='text'>sign-in</span>
+          <button className='btn btn-primary' onClick={handleModal}>
+            <span className='text'>modal</span>
+          </button>
+
+          <button className='btn btn-primary' onClick={signout}>
+            <span className='text'>sign-out</span>
           </button>
 
           <button className='btn btn-primary' onClick={handleCookie}>

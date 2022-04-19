@@ -24,7 +24,7 @@ export function ModalItem({ vid, index, visible, className, children, onExited }
   // __RENDER
   return (
     <CSSTransition nodeRef={nodeRef} in={state} timeout={256} unmountOnExit={true} onExited={() => onExited(vid)}>
-      <div className={cls('ui--modal-wrapper', className)} style={{ zIndex: 40 + index }} ref={nodeRef}>
+      <div className={cls('ui--modal-wrapper', 'is-default', className)} style={{ zIndex: 40 + index }} ref={nodeRef}>
         <div className='ui--modal-container' data-vid={vid}>
           {children}
         </div>

@@ -43,7 +43,7 @@ export function useAuth() {
   )
 
   const signout = useCallback(() => {
-    AuthService.signout()
+    AuthService.signout('/')
     deactivate()
   }, [deactivate])
 

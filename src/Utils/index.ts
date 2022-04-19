@@ -5,10 +5,11 @@ export { cookies, attrCookie, getCookie, setCookie, removeCookie } from './cooki
 export { DefineProperty } from './defineProperty'
 export { dialog } from './dialog'
 export { Fraction } from './fraction'
+export { createObjectURL, getFileListAt, getMediaBlob } from './media'
 export { modal } from './modal'
 export { notice } from './notice'
 export { session, storage } from './storage'
-export { getBNBBalance } from './web3'
+export { shortAddress, getBNBBalance } from './web3'
 
 export function vy() {
   const d = format(Date.now(), 'yyyy-MM-dd hh:mm:ss a')
@@ -128,10 +129,8 @@ export function abbreviateNumber(input: number): number | string {
 }
 
 export function differenceTime() {
-  // __STATE <React.Hooks>
   const start = Date.now()
 
-  // __RETURN
   return (digits: number = 3) => {
     const seconds = Date.now() - start
 

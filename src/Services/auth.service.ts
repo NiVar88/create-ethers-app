@@ -92,12 +92,12 @@ export class AuthService extends BaseService {
     const _address = address || getCookie(configs.APP_USER_ADDRESS)
     // const user = await this.get<IUser>('/auth/me', { params: { address: _address } })
 
-    dispatch(userActions.setAuthenticated(_address))
     dispatch(
       userActions.setProfile({
         uid: 1,
         role: 'guest',
         avatar: 'https://picsum.photos/320',
+        address: _address,
         name: 'unnamed',
         createdAt: formatISO(new Date()),
         updatedAt: formatISO(new Date())
@@ -125,7 +125,6 @@ export class AuthService extends BaseService {
 
     if (redirectTo) location.href = redirectTo
     else {
-      dispatch(userActions.setAuthenticated(null))
       dispatch(userActions.setProfile(null))
     }
   }

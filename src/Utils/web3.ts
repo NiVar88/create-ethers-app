@@ -46,6 +46,19 @@ export function setAddress(addresses: Record<ChainId, string | null>) {
 }
 
 /**
+ * Convert address to short string.
+ *
+ * @param {string} address
+ */
+export function shortAddress(address?: string | null): string {
+  if (address) {
+    return `${address.slice(0, 6)}...${address.slice(address.length - 4)}`
+  } else {
+    return '...'
+  }
+}
+
+/**
  * GET Random rpc url.
  *
  * @param {ChainId} chainId

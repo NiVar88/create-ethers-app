@@ -1,19 +1,6 @@
-import { ReactChild, ReactFragment, ReactPortal } from 'react'
 import { dispatch, appActions } from '@/Store'
 import { generateId } from '@/Utils'
-import { IModal } from '@/Types'
-
-export type ModalChild = ReactChild | ReactFragment | ReactPortal | IModal
-
-export interface Modal {
-  vid: string
-  visible: boolean
-  className?: string
-  allowEscape?: boolean
-  children: ModalChild | null
-}
-
-export interface ModalOptions extends Pick<Modal, 'className' | 'allowEscape'> {}
+import { ModalChildren, ModalOptions } from '@/Types'
 
 export class modal {
   /**
@@ -23,7 +10,7 @@ export class modal {
    * @param {ModalOptions} options
    * @returns vid
    */
-  static on(children: ModalChild, options?: ModalOptions) {
+  static on(children: ModalChildren, options?: ModalOptions) {
     const vid = generateId()
     const action = appActions.setModal({
       vid,

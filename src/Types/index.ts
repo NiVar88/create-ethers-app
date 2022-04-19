@@ -1,24 +1,25 @@
-import { Dialog } from '@/Utils/dialog'
-import { Modal } from '@/Utils/modal'
 import { Notice } from '@/Utils/notice'
 
 export * from './status'
 export { ChainId, SupportedChainId } from './chains'
 export { Connectors } from './connectors'
+export { IDialog } from './dialog'
+export { IModal } from './modal'
 
+export type { Dialog, DialogChildren, DialogOptions, DialogResults } from './dialog'
+export type { Modal, ModalChildren, ModalOptions } from './modal'
 export type { Token } from './token'
 export type { User, IUser } from './user'
 export type { Wallet } from './wallet'
-export type { Dialog, Modal, Notice }
+export type { Notice }
 
 export type Theme = 'default' | 'light' | 'dark'
 
-export enum IDialog {
-  DEMO = '@DIALOG:DEMO'
-}
-
-export enum IModal {
-  CONNECT_WALLET = '@MODAL:CONNECT_WALLET'
+export interface IMedia {
+  url: string
+  isImage?: boolean
+  isVideo?: boolean
+  isAudio?: boolean
 }
 
 export interface CurrencyBalance {

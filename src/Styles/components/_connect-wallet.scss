@@ -1,0 +1,81 @@
+.ui--connect-wallet {
+  display: grid;
+  grid-gap: 2rem;
+  grid-auto-flow: row;
+  padding: 2rem 0;
+  background-color: white;
+  border-radius: 0 0 var(--border-radius-large) var(--border-radius-large);
+
+  &-group {
+    display: grid;
+    grid-gap: 1rem;
+    padding: 0 2rem;
+
+    &:hover {
+      .btn {
+        opacity: 0.75;
+      }
+    }
+  }
+
+  &-footer {
+    text-align: center;
+  }
+
+  .btn {
+    &-wallet {
+      justify-content: flex-start;
+      grid-gap: 1rem;
+      width: 100%;
+      padding: 8px 16px;
+      background-color: tint(#C6BC9D, 50%);
+      border-radius: var(--border-radius-medium);
+      transition: all var(--transition-time) ease;
+
+      &:hover {
+        opacity: 1 !important;
+      }
+
+      .icon {
+        display: block;
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        background-color: white;
+        box-shadow: 0 0 0 2px white;
+      }
+
+      .text {
+        text-align: left;
+      }
+
+      .h4 {
+        font-weight: var(--font-weight-bold);
+        line-height: 150%;
+      }
+
+      .h6 {
+        color: var(--color-secondary);
+      }
+    }
+
+    &-guide {
+      grid-gap: 0.5rem;
+
+      .icon {
+        color: black;
+        font-size: var(--font-size-large);
+      }
+
+      .text {
+        color: black;
+      }
+    }
+  }
+}
+
+@include class-modal('sign-in') {
+  @include class-endWith('-container') {
+    max-width: 480px;
+  }
+}

@@ -6,6 +6,8 @@ import { ModalItem } from './item'
 import { getCurrentContant } from './register'
 import cls from 'classnames'
 
+export { ModalComponent } from './context'
+
 export function ModalContainer() {
   // __STATE <React.Hooks>
   const dispatch = useDispatch()
