@@ -15,6 +15,17 @@
     height: 80px;
   }
 
+  &-context {
+    &.ltr {
+      display: grid;
+      grid-gap: 4rem;
+      grid-auto-flow: column;
+      align-items: center;
+    }
+
+    // &.rtl {}
+  }
+
   // &-user {}
 
   &-account {
@@ -67,6 +78,29 @@
   }
 
   .btn {
+    &-logo {
+      grid-gap: 0;
+      user-select: none;
+
+      span {
+        text-transform: uppercase;
+        font-size: var(--font-size-large);
+
+        &:nth-child(1) {
+          padding-right: 2px;
+          font-weight: var(--font-weight-bolder);
+        }
+
+        &:nth-child(2) {
+          font-weight: var(--font-weight-bolde);
+          padding: 0 4px;
+          color: var(--color-primary);
+          background-color: var(--color-secondary);
+          border-radius: 2px;
+        }
+      }
+    }
+
     &-connect {
       height: 40px;
       padding: 0 2rem;

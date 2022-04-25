@@ -115,6 +115,7 @@ export class AuthService extends BaseService {
     removeCookie(configs.APP_USER_CONNECTOR, attrCookie())
     removeCookie(configs.APP_USER_INFO, attrCookie())
 
+    // Remove all for sure.
     const cookies = document.cookie.split(';')
     for (const cookie of cookies) {
       // prettier-ignore

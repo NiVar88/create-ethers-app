@@ -1,6 +1,6 @@
 {
   "short_name": "Alice",
-  "name": "Alice Project",
+  "name": "Project Alice",
   "icons": [
     {
       "type": "image/x-icon",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#0B3245",
-  "background_color": "#051922"
+  "theme_color": "#D82148",
+  "background_color": "#FFFFFF"
 }
