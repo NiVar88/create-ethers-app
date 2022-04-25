@@ -1,16 +1,16 @@
-# PROJECT - Alice.
+# Project Alice.
 
 ## Directory structure
 
 ```
 src               # App entry point.
-└─ Collects       # Redux state management.
 └─ Components     # Global custom components.
 └─ Constants      # Initiate constant configs.
 └─ Contracts      # Smart Contracts & ABIs.
 └─ Hooks          # Customs React hooks.
 └─ Pages          # Application page view.
 └─ Services       # APIs services.
+└─ Store          # Redux state management.
 └─ Styles         # Stylesheet.
 └─ Types          # TypeScript decorators.
 └─ Utils          # Utility functions.

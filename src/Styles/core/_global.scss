@@ -1,6 +1,12 @@
 // SET global classes.
 .ui- {
-  &-wrapper {}
+  &-wrapper {
+    background-attachment: fixed;
+    background-image: linear-gradient(rgba(white, 0.75), rgba(white,0.75)), url('/static/images/spindle.png');
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 
   &-layout {
     &-wrapper {

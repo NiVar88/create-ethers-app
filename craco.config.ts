@@ -5,6 +5,19 @@ export default {
     enable: false
   },
 
+  style: {
+    css: {
+      loaderOptions: {
+        url: false
+      }
+    },
+    scss: {
+      loaderOptions: {
+        url: false
+      }
+    }
+  },
+
   webpack: {
     alias: {
       '@': resolve(__dirname, 'src'),

@@ -44,8 +44,7 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   font-family: var(--font-family-primary);
   font-size: var(--font-size-medium);
-  color: white;
-  background-color: var(--color-secondary);
+  color: var(--color-secondary);
 }
 
 /* HTML5 display-role reset for older browsers */

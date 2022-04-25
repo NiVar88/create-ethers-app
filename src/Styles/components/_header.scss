@@ -1,6 +1,11 @@
 .ui--header {
-  background-color: black;
-  
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background-color: rgba(silver, 0.2);
+
   &-container {
     display: grid;
     grid-auto-flow: column;
@@ -44,7 +49,7 @@
       right: 0;
       padding: 1rem 0;
       border-radius: 8px;
-      box-shadow: 0 6px 14px rgba(#121212, 0.25);
+      box-shadow: 0 6px 14px rgba(#121212, 0.1);
       background-color: white;
       transition: all var(--transition-time) ease;
 
@@ -82,9 +87,9 @@
 
       &:hover {
         color: var(--color-secondary);
-        background-color: rgba(#C6BC9D, 0.25);
+        background-color: rgba(#c6bc9d, 0.15);
       }
-      
+
       .icon {
         text-align: center;
         font-size: var(--font-size-large);

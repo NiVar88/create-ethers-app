@@ -60,7 +60,7 @@ export function WatcherContainer() {
 
   useEffect(() => {
     if (started[0]) clearInterval(started[0])
-    if (account) {
+    if (account && 0) {
       const intervalId = setInterval(() => onFetchBalance(account), 2e4)
       onFetchBalance(account)
       setStarted((prev) => {
