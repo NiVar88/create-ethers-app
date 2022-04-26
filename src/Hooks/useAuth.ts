@@ -9,7 +9,7 @@ import { Connectors } from '@/Types'
 
 export function useAuth() {
   // __STATE <Rect.Hooks>
-  const { activate, deactivate } = useWeb3ReactCore()
+  const { activate, deactivate, library } = useWeb3ReactCore()
 
   // __FUNCTIONS
   const signin = useCallback(

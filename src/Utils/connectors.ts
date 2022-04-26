@@ -1,4 +1,4 @@
-import { ethers } from 'ethers'
+import { Web3Provider, StaticJsonRpcProvider } from '@ethersproject/providers'
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { AbstractConnector } from '@web3-react/abstract-connector'
@@ -11,8 +11,8 @@ const RPC_URL = getRpcUrl()
 const supportedChainIds = [ChainId.BSC, ChainId.BSC_TESTNET]
 
 export function getLibrary(provider: any) {
-  const library = new ethers.providers.Web3Provider(provider)
-  library.pollingInterval = 1e4
+  const library = new Web3Provider(provider)
+  library.pollingInterval = 12e3
   return library
 }
 
@@ -32,4 +32,4 @@ export const connectorsBy: Record<Connectors, AbstractConnector> = {
   [Connectors.WalletConnect]: walletconnect
 }
 
-export const simpleRpcProvider = new ethers.providers.StaticJsonRpcProvider(RPC_URL)
+export const simpleRpcProvider = new StaticJsonRpcProvider(RPC_URL)

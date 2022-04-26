@@ -10,7 +10,7 @@ import {
   NoticeContainer,
   WatcherContainer
 } from '@/Components'
-import { getLibrary } from '@/Utils'
+import { givenLibrary } from '@/Utils/ethers'
 
 import Home from '@/Pages/Home'
 import Labs from '@/Pages/Labs'
@@ -18,7 +18,7 @@ import Labs from '@/Pages/Labs'
 export default function Application() {
   // __RENDER
   return (
-    <Web3ReactProvider getLibrary={getLibrary}>
+    <Web3ReactProvider getLibrary={givenLibrary}>
       <Provider store={Store}>
         <WatcherContainer />
 

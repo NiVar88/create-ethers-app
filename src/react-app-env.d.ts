@@ -1,5 +1,7 @@
 /// <reference types="react-scripts" />
 
+declare type Void = undefined
+
 declare type EventNames = 'connect' | 'disconnect' | 'accountsChanged' | 'chainChanged'
 
 declare interface Window {

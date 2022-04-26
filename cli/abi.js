@@ -11,7 +11,7 @@ const __exec = (fileName) => {
     `${__dir[0]}/${fileName}.json`,
     `--output=${__dir[1]}`,
     `--name=${fileName}`,
-    `--provider=web3`
+    `--provider=ethers`
   ]
 
   exec(command.join(' '), (err, stdout) => {
