@@ -1,4 +1,4 @@
-import { setAddress } from '@/Utils/web3'
+import { setAddress } from '@/Utils/ethers'
 import { ChainId } from '@/Types'
 
 export type KeyNames = 'multicall' | 'masterChef' | 'pancakeRouter'

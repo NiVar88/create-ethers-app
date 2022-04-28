@@ -1,3 +1,5 @@
+import { Provider } from '@ethersproject/abstract-provider'
+import { Signer } from '@ethersproject/abstract-signer'
 import { Notice } from '@/Utils/notice'
 
 export * from './status'
@@ -13,7 +15,13 @@ export type { User, IUser } from './user'
 export type { Wallet } from './wallet'
 export type { Notice }
 
-export type Theme = 'default' | 'light' | 'dark'
+export type Library = Signer | Provider
+
+export enum Theme {
+  DEFAULT = 'default',
+  LIGHT = 'light',
+  DARK = 'dark'
+}
 
 export interface IMedia {
   url: string

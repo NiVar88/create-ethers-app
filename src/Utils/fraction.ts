@@ -1,18 +1,14 @@
-import BigNumber from 'bignumber.js'
+import { BigNumber } from '@ethersproject/bignumber'
+import { formatUnits, parseUnits } from '@ethersproject/units'
 
 export class Fraction extends BigNumber {
-  static BASE = new BigNumber(10).pow(18)
-  static ZERO = new BigNumber(0)
+  static BASE = BigNumber.from(10).pow(18)
+  static ZERO = BigNumber.from(0)
 
-  static MaxUint256 = new BigNumber('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
-  static MinInt256 = new BigNumber('-0x8000000000000000000000000000000000000000000000000000000000000000')
-  static MaxInt256 = new BigNumber('0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
+  static MaxUint256 = BigNumber.from('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
+  static MinInt256 = BigNumber.from('-0x8000000000000000000000000000000000000000000000000000000000000000')
+  static MaxInt256 = BigNumber.from('0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
 
-  static from(value: BigNumber.Value) {
-    return new BigNumber(value)
-  }
-
-  static price(value: Fraction): number {
-    return value.isNaN() ? 0 : value.toNumber()
-  }
+  static formatUnits = formatUnits
+  static parseUnits = parseUnits
 }

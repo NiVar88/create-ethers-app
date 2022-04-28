@@ -1,12 +1,12 @@
 import { useMemo } from 'react'
 import { ModalComponent } from '@/Components'
 import { Wallets } from '@/Constants'
-import { useAuth } from '@/Hooks'
+import { useWalletConnection } from '@/Hooks'
 
 export function ConnectWallet() {
   // __STATE <React.Hooks>
+  const { connect } = useWalletConnection()
   const wallets = useMemo(() => Wallets, [])
-  const { signin } = useAuth()
 
   // __RENDER
   return (
@@ -15,7 +15,7 @@ export function ConnectWallet() {
         <ul className='ui--connect-wallet-group'>
           {wallets.map((record, index) => (
             <li className='ui--connect-wallet-list' key={index}>
-              <button className='btn btn-wallet' onClick={() => signin(record.connector)}>
+              <button className='btn btn-wallet' onClick={() => connect(record.connector)}>
                 <img className='icon' src={`/static/images/wallets/${record.icon}`} />
                 <div className='text'>
                   <h4 className='h4'>{record.name}</h4>

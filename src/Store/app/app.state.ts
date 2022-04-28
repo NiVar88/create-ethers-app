@@ -13,7 +13,7 @@ interface AppState {
 export const initialState: AppState = {
   appVersion: 'v0.1-beta (Mar, 2022)',
   lang: 'en-US',
-  theme: 'default',
+  theme: Theme.LIGHT,
   loader: false,
   dialog: {
     visible: false,

@@ -1,9 +1,9 @@
 import { useCallback, useState, useTransition } from 'react'
 import { ModalComponent } from '@/Components'
 import { configs } from '@/Constants'
-import { useAuth, useModal } from '@/Hooks'
+import { useModal } from '@/Hooks'
 import { BaseService } from '@/Services/base.service'
-import { dialog, setCookie } from '@/Utils'
+import { dialog } from '@/Utils'
 import { FormLabs } from './Components/form'
 import JWT from 'jsonwebtoken'
 import '@Styles/pages/labs.scss'
@@ -13,7 +13,6 @@ export default function LabsContainer() {
   const [count, setCount] = useState<number>(0)
   const [isPadding, startTransition] = useTransition()
 
-  const { signout } = useAuth()
   const modal = useModal({ className: 'modal-labs' })
 
   // __FUNCTIONS
@@ -35,11 +34,6 @@ export default function LabsContainer() {
       </ModalComponent>
     )
   }, [modal])
-
-  const handleCookie = useCallback(() => {
-    setCookie(configs.APP_AUTH_ACCESS, JWT.sign({ uid: 1 }, 'S3C23T', { expiresIn: '1h' }))
-    setCookie(configs.APP_AUTH_REFRESH, JWT.sign({ uid: 1 }, 'S3C23T', { expiresIn: '7 days' }))
-  }, [])
 
   const handleService = useCallback(async () => {
     const r = await BaseService.get('todos/1')
@@ -75,14 +69,6 @@ export default function LabsContainer() {
 
           <button className='btn btn-primary' onClick={handleModal}>
             <span className='text'>modal</span>
-          </button>
-
-          <button className='btn btn-primary' onClick={signout}>
-            <span className='text'>sign-out</span>
-          </button>
-
-          <button className='btn btn-primary' onClick={handleCookie}>
-            <span className='text'>set cookies</span>
           </button>
 
           <button className='btn btn-primary' onClick={handleService}>

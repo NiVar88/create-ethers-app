@@ -2,7 +2,7 @@ import { configs } from '@/Constants'
 import { BaseService } from '@/Services/base.service'
 import { dispatch, userActions } from '@/Store'
 import { getCookie, setCookie, removeCookie, attrCookie, generateId, notice } from '@/Utils'
-import { GivenConnector, GivenProvider } from '@/Utils/web3'
+import { getCurrentConnector, getWeb3Provider } from '@/Utils/ethers'
 import { Connectors, IUser } from '@/Types'
 import { formatISO } from 'date-fns'
 import JWT from 'jsonwebtoken'
@@ -61,7 +61,7 @@ export class AuthService extends BaseService {
    * @param {string} address
    */
   static async getSignature(dataToSign: string, address: string) {
-    const connector = GivenConnector()
+    const connector = getCurrentConnector()
 
     if (!connector) return void 0
 
@@ -75,8 +75,11 @@ export class AuthService extends BaseService {
         break
 
       default:
-        const provider = GivenProvider()
-        signature = await provider.personal.sign(dataToSign, address, '')
+        const provider = getWeb3Provider()
+        if (provider) {
+          const signer = provider.getSigner(address)
+          signature = await signer.signMessage(dataToSign)
+        }
         break
     }
 

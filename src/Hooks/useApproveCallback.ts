@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { useWeb3React as useWeb3ReactCore } from '@web3-react/core'
+import { useERC20Contract } from './useContractFactory'
 import { useTokenAllowance } from './useTokenAllowance'
-import { ERC20Contract } from '@/Contracts'
+import { GAS_PRICE_GWEI } from '@/Constants'
 import { Fraction } from '@/Utils'
 import { ApproveStatus } from '@/Types'
 
@@ -19,10 +20,11 @@ export function useApproveCallback(address: string, spender: string): ApproveCal
   const { account } = useWeb3ReactCore()
   const [approveStatus, setApproveStatus] = useState<ApproveStatus>(ApproveStatus.APPROVED)
 
+  const contract = useERC20Contract(address)
   const allowance = useTokenAllowance(address, spender)
 
   // __FUNCTIONS
-  const approve = useCallback(async (): Promise<void> => {
+  const approve = useCallback(async () => {
     if (!account) return void 0
 
     if (approveStatus !== ApproveStatus.NOT_APPROVED) {
@@ -33,23 +35,24 @@ export function useApproveCallback(address: string, spender: string): ApproveCal
     setApproveStatus(ApproveStatus.PENDING)
 
     try {
-      const { methods: contract } = ERC20Contract.build(address)
-      const func = contract.approve(spender, Fraction.BASE.toString(10))
+      const gas = await contract.estimateGas.approve(spender, Fraction.BASE)
+      const call = await contract.approve(spender, Fraction.BASE, {
+        gasLimit: gas.toNumber(),
+        gasPrice: GAS_PRICE_GWEI.default
+      })
+      const resp = await call.wait(call.confirmations)
 
-      const gas = await func.estimateGas({ from: account })
-      const response = await func.send({ from: account, gas })
-
-      setApproveStatus(response.status ? ApproveStatus.APPROVED : ApproveStatus.NOT_APPROVED)
+      setApproveStatus(resp.status ? ApproveStatus.APPROVED : ApproveStatus.NOT_APPROVED)
     } catch (error) {
       setApproveStatus(ApproveStatus.NOT_APPROVED)
       console.error('Failed to approve token', error)
       throw error
     }
-  }, [account, address, approveStatus])
+  }, [account, address, approveStatus, contract])
 
   // __EFFECTS
   useEffect(() => {
-    if (allowance.isZero() || allowance.isNaN()) setApproveStatus(ApproveStatus.NOT_APPROVED)
+    if (allowance.isZero()) setApproveStatus(ApproveStatus.NOT_APPROVED)
   }, [allowance])
 
   // __RETUEN

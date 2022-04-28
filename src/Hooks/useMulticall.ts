@@ -1,34 +1,34 @@
 import { useCallback, useMemo } from 'react'
+import { Fragment, Interface, JsonFragment } from '@ethersproject/abi'
 import { Addresses } from '@/Constants'
-import { MulticallContract } from '@/Contracts'
-import { Interface } from '@/Utils/web3'
+import { useMulticallContract } from '@/Hooks'
 
-export function useMulticall(contractAbi: any[]): Callback {
+export function useMulticall(contractAbi: string | readonly (string | Fragment | JsonFragment)[]): Callback {
   // __STATE <React.Hooks>
-  const { methods: multicallContract } = useMemo(() => MulticallContract.build(Addresses.multicall), [])
-  const multicallInterface = useMemo(() => new Interface(contractAbi), [])
-
-  // __FUNCTIONS
-  const handleCalls = useCallback(async (calls: Call[]) => {
-    try {
-      const callData = calls.map(({ address, method, params }) => ({
-        target: address,
-        callData: multicallInterface.encodeFunctionData(method, params)
-      }))
-
-      const { returnData } = await multicallContract.aggregate(callData).call()
-
-      return returnData.map((data, index) => ({
-        address: calls[index].address,
-        value: multicallInterface.decodeFunctionResult(calls[index].method, data)[0]
-      }))
-    } catch (error) {
-      console.error('`useMulticall`', error)
-    }
-  }, [])
+  const contract = useMulticallContract(Addresses.multicall)
+  const contractInterface = useMemo(() => new Interface(contractAbi), [])
 
   // __RETURN
-  return useMemo(() => handleCalls, [handleCalls])
+  return useCallback(
+    async (calls: Call[]) => {
+      try {
+        const resp = await contract.aggregate(
+          calls.map(({ address, method, params }) => ({
+            target: address,
+            callData: contractInterface.encodeFunctionData(method, params)
+          }))
+        )
+
+        return resp.returnData.map((data, index) => ({
+          address: calls[index].address,
+          value: contractInterface.decodeFunctionResult(calls[index].method, data)[0]
+        }))
+      } catch (error) {
+        console.error('`useMulticall`', error)
+      }
+    },
+    [contract, contractInterface]
+  )
 }
 
 export interface Call {
@@ -53,4 +53,4 @@ export interface ReturnData {
   value: any
 }
 
-export type Callback = (calls: Call[]) => Promise<ReturnData[] | void>
+export type Callback = (calls: Call[]) => Promise<ReturnData[] | Void>

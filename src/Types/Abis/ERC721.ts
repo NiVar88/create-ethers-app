@@ -1,79 +1,53 @@
-import BN from 'bn.js'
-import BigNumber from 'bignumber.js'
-import {
-  PromiEvent,
-  TransactionReceipt,
-  EventResponse,
-  EventData,
-  Web3ContractContext
-} from 'ethereum-abi-types-generator'
+import { ContractTransaction, ContractInterface, BytesLike as Arrayish, BigNumber, BigNumberish } from 'ethers'
+import { EthersContractContextV5 } from 'ethereum-abi-types-generator'
 
-export interface CallOptions {
+export type ContractContext = EthersContractContextV5<ERC721, ERC721MethodNames, ERC721EventsContext, ERC721Events>
+
+export declare type EventFilter = {
+  address?: string
+  topics?: Array<string>
+  fromBlock?: string | number
+  toBlock?: string | number
+}
+
+export interface ContractTransactionOverrides {
+  /**
+   * The maximum units of gas for the transaction to use
+   */
+  gasLimit?: number
+  /**
+   * The price (in wei) per unit of gas
+   */
+  gasPrice?: BigNumber | string | number | Promise<any>
+  /**
+   * The nonce to use in the transaction
+   */
+  nonce?: number
+  /**
+   * The amount to send with the transaction (i.e. msg.value)
+   */
+  value?: BigNumber | string | number | Promise<any>
+  /**
+   * The chain ID (or network ID) to use
+   */
+  chainId?: number
+}
+
+export interface ContractCallOverrides {
+  /**
+   * The address to execute the call as
+   */
   from?: string
-  gasPrice?: string
-  gas?: number
+  /**
+   * The maximum units of gas for the transaction to use
+   */
+  gasLimit?: number
 }
-
-export interface SendOptions {
-  from: string
-  value?: number | string | BN | BigNumber
-  gasPrice?: string
-  gas?: number
-}
-
-export interface EstimateGasOptions {
-  from?: string
-  value?: number | string | BN | BigNumber
-  gas?: number
-}
-
-export interface MethodPayableReturnContext {
-  send(options: SendOptions): PromiEvent<TransactionReceipt>
-  send(options: SendOptions, callback: (error: Error, result: any) => void): PromiEvent<TransactionReceipt>
-  estimateGas(options: EstimateGasOptions): Promise<number>
-  estimateGas(options: EstimateGasOptions, callback: (error: Error, result: any) => void): Promise<number>
-  encodeABI(): string
-}
-
-export interface MethodConstantReturnContext<TCallReturn> {
-  call(): Promise<TCallReturn>
-  call(options: CallOptions): Promise<TCallReturn>
-  call(options: CallOptions, callback: (error: Error, result: TCallReturn) => void): Promise<TCallReturn>
-  encodeABI(): string
-}
-
-export interface MethodReturnContext extends MethodPayableReturnContext {}
-
-export type ContractContext = Web3ContractContext<ERC721, ERC721MethodNames, ERC721EventsContext, ERC721Events>
 export type ERC721Events = 'Mint' | 'Transfer' | 'Approval'
 export interface ERC721EventsContext {
-  Mint(
-    parameters: {
-      filter?: { _to?: string | string[]; _tokenId?: string | string[] }
-      fromBlock?: number
-      toBlock?: 'latest' | number
-      topics?: string[]
-    },
-    callback?: (error: Error, event: EventData) => void
-  ): EventResponse
-  Transfer(
-    parameters: {
-      filter?: { _from?: string | string[]; _to?: string | string[] }
-      fromBlock?: number
-      toBlock?: 'latest' | number
-      topics?: string[]
-    },
-    callback?: (error: Error, event: EventData) => void
-  ): EventResponse
-  Approval(
-    parameters: {
-      filter?: { _owner?: string | string[]; _approved?: string | string[] }
-      fromBlock?: number
-      toBlock?: 'latest' | number
-      topics?: string[]
-    },
-    callback?: (error: Error, event: EventData) => void
-  ): EventResponse
+  Mint(...parameters: any): EventFilter
+  Transfer(...parameters: any): EventFilter
+  Approval(...parameters: any): EventFilter
 }
 export type ERC721MethodNames =
   | 'name'
@@ -94,17 +68,17 @@ export type ERC721MethodNames =
   | 'tokenURI'
 export interface MintEventEmittedResponse {
   _to: string
-  _tokenId: string
+  _tokenId: BigNumberish
 }
 export interface TransferEventEmittedResponse {
   _from: string
   _to: string
-  _tokenId: string
+  _tokenId: BigNumberish
 }
 export interface ApprovalEventEmittedResponse {
   _owner: string
   _approved: string
-  _tokenId: string
+  _tokenId: BigNumberish
 }
 export interface ERC721 {
   /**
@@ -113,7 +87,7 @@ export interface ERC721 {
    * StateMutability: view
    * Type: function
    */
-  name(): MethodConstantReturnContext<string>
+  name(overrides?: ContractCallOverrides): Promise<string>
   /**
    * Payable: false
    * Constant: true
@@ -121,7 +95,7 @@ export interface ERC721 {
    * Type: function
    * @param _tokenId Type: uint256, Indexed: false
    */
-  getApproved(_tokenId: string): MethodConstantReturnContext<string>
+  getApproved(_tokenId: BigNumberish, overrides?: ContractCallOverrides): Promise<string>
   /**
    * Payable: false
    * Constant: false
@@ -130,21 +104,21 @@ export interface ERC721 {
    * @param _to Type: address, Indexed: false
    * @param _tokenId Type: uint256, Indexed: false
    */
-  approve(_to: string, _tokenId: string): MethodReturnContext
+  approve(_to: string, _tokenId: BigNumberish, overrides?: ContractTransactionOverrides): Promise<ContractTransaction>
   /**
    * Payable: false
    * Constant: true
    * StateMutability: view
    * Type: function
    */
-  implementsERC721(): MethodConstantReturnContext<boolean>
+  implementsERC721(overrides?: ContractCallOverrides): Promise<boolean>
   /**
    * Payable: false
    * Constant: true
    * StateMutability: view
    * Type: function
    */
-  totalSupply(): MethodConstantReturnContext<string>
+  totalSupply(overrides?: ContractCallOverrides): Promise<BigNumber>
   /**
    * Payable: false
    * Constant: false
@@ -154,7 +128,12 @@ export interface ERC721 {
    * @param _to Type: address, Indexed: false
    * @param _tokenId Type: uint256, Indexed: false
    */
-  transferFrom(_from: string, _to: string, _tokenId: string): MethodReturnContext
+  transferFrom(
+    _from: string,
+    _to: string,
+    _tokenId: BigNumberish,
+    overrides?: ContractTransactionOverrides
+  ): Promise<ContractTransaction>
   /**
    * Payable: false
    * Constant: true
@@ -163,7 +142,7 @@ export interface ERC721 {
    * @param _owner Type: address, Indexed: false
    * @param _index Type: uint256, Indexed: false
    */
-  tokenOfOwnerByIndex(_owner: string, _index: string): MethodConstantReturnContext<string>
+  tokenOfOwnerByIndex(_owner: string, _index: BigNumberish, overrides?: ContractCallOverrides): Promise<BigNumber>
   /**
    * Payable: false
    * Constant: true
@@ -171,7 +150,7 @@ export interface ERC721 {
    * Type: function
    * @param _tokenId Type: uint256, Indexed: false
    */
-  ownerOf(_tokenId: string): MethodConstantReturnContext<string>
+  ownerOf(_tokenId: BigNumberish, overrides?: ContractCallOverrides): Promise<string>
   /**
    * Payable: false
    * Constant: true
@@ -179,7 +158,7 @@ export interface ERC721 {
    * Type: function
    * @param _tokenId Type: uint256, Indexed: false
    */
-  tokenMetadata(_tokenId: string): MethodConstantReturnContext<string>
+  tokenMetadata(_tokenId: BigNumberish, overrides?: ContractCallOverrides): Promise<string>
   /**
    * Payable: false
    * Constant: true
@@ -187,7 +166,7 @@ export interface ERC721 {
    * Type: function
    * @param _owner Type: address, Indexed: false
    */
-  balanceOf(_owner: string): MethodConstantReturnContext<string>
+  balanceOf(_owner: string, overrides?: ContractCallOverrides): Promise<BigNumber>
   /**
    * Payable: false
    * Constant: false
@@ -198,14 +177,20 @@ export interface ERC721 {
    * @param _approvedAddress Type: address, Indexed: false
    * @param _metadata Type: string, Indexed: false
    */
-  mint(_owner: string, _tokenId: string, _approvedAddress: string, _metadata: string): MethodReturnContext
+  mint(
+    _owner: string,
+    _tokenId: BigNumberish,
+    _approvedAddress: string,
+    _metadata: string,
+    overrides?: ContractTransactionOverrides
+  ): Promise<ContractTransaction>
   /**
    * Payable: false
    * Constant: true
    * StateMutability: view
    * Type: function
    */
-  symbol(): MethodConstantReturnContext<string>
+  symbol(overrides?: ContractCallOverrides): Promise<string>
   /**
    * Payable: false
    * Constant: false
@@ -214,14 +199,14 @@ export interface ERC721 {
    * @param _to Type: address, Indexed: false
    * @param _tokenId Type: uint256, Indexed: false
    */
-  transfer(_to: string, _tokenId: string): MethodReturnContext
+  transfer(_to: string, _tokenId: BigNumberish, overrides?: ContractTransactionOverrides): Promise<ContractTransaction>
   /**
    * Payable: false
    * Constant: true
    * StateMutability: view
    * Type: function
    */
-  numTokensTotal(): MethodConstantReturnContext<string>
+  numTokensTotal(overrides?: ContractCallOverrides): Promise<BigNumber>
   /**
    * Payable: false
    * Constant: true
@@ -229,7 +214,7 @@ export interface ERC721 {
    * Type: function
    * @param _owner Type: address, Indexed: false
    */
-  getOwnerTokens(_owner: string): MethodConstantReturnContext<string[]>
+  getOwnerTokens(_owner: string, overrides?: ContractCallOverrides): Promise<BigNumber[]>
   /**
    * Payable: false
    * Constant: true
@@ -237,5 +222,5 @@ export interface ERC721 {
    * Type: function
    * @param tokenId Type: uint256, Indexed: false
    */
-  tokenURI(tokenId: string): MethodConstantReturnContext<string>
+  tokenURI(tokenId: BigNumberish, overrides?: ContractCallOverrides): Promise<string>
 }

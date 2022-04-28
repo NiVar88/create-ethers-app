@@ -1,4 +1,4 @@
-import { setAddress } from '@/Utils/web3'
+import { setAddress } from '@/Utils/ethers'
 import { ChainId, Token } from '@/Types'
 
 export const Tokens: Record<string, Token> = {

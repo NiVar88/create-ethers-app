@@ -2,9 +2,11 @@ import { utils } from 'ethers'
 import { Web3Provider, StaticJsonRpcProvider } from '@ethersproject/providers'
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
+import { WalletLinkConnector } from '@web3-react/walletlink-connector'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { BscConnector } from '@binance-chain/bsc-connector'
-import { configs, RPCS } from '@/Constants'
+import { configs } from '@/Constants'
+import { RPCS } from '@/Constants/rpcs'
 import { Connectors, ChainId } from '@/Types'
 import { getCookie } from './cookies'
 
@@ -21,13 +23,15 @@ export function givenLibrary(provider: any): Web3Provider {
 }
 
 /**
- * GET Random rpc url.
- *
- * @param {ChainId} chainId
+ * Get current web3 provider.
  */
-export function getRpcUrl(chainId: ChainId = configs.DEFAULT_CHAIN_ID) {
-  const index = Math.floor(Math.random() * RPCS[chainId].length)
-  return RPCS[chainId][index]
+export function getWeb3Provider(): Web3Provider | Void {
+  const { web3 } = window
+  if (web3) {
+    return new Web3Provider(web3.currentProvider)
+  }
+
+  return void 0
 }
 
 /**
@@ -39,6 +43,16 @@ export function getCurrentConnector(): Connectors | Void {
   if (connector) return connector
 
   return void 0
+}
+
+/**
+ * GET Random rpc url.
+ *
+ * @param {ChainId} chainId
+ */
+export function getRpcUrl(chainId: ChainId = configs.DEFAULT_CHAIN_ID) {
+  const index = Math.floor(Math.random() * RPCS[chainId].length)
+  return RPCS[chainId][index] || ''
 }
 
 /**
@@ -63,16 +77,28 @@ export function shortAddress(address?: string | null): string {
   }
 }
 
-export const connectorsBy: Record<Connectors, AbstractConnector> = {
-  [Connectors.Injected]: new InjectedConnector({ supportedChainIds: [ChainId.BSC, ChainId.BSC_TESTNET] }),
-  [Connectors.BSC]: new BscConnector({ supportedChainIds: [ChainId.BSC, ChainId.BSC_TESTNET] }),
-  [Connectors.WalletConnect]: new WalletConnectConnector({
-    rpc: {
-      [ChainId.BSC]: RPCS[ChainId.BSC][0],
-      [ChainId.BSC_TESTNET]: RPCS[ChainId.BSC_TESTNET][0]
-    },
-    qrcode: true
-  })
+export const injected = new InjectedConnector({ supportedChainIds: [ChainId.BSC, ChainId.BSC_TESTNET] })
+
+export const walletbsc = new BscConnector({ supportedChainIds: [ChainId.BSC, ChainId.BSC_TESTNET] })
+
+export const walletlink = new WalletLinkConnector({
+  appName: configs.APP_NAME,
+  url: getRpcUrl(),
+  supportedChainIds: [ChainId.BSC, ChainId.BSC_TESTNET]
+})
+
+export const walletconnect = new WalletConnectConnector({
+  rpc: getRpcUrl(),
+  chainId: configs.DEFAULT_CHAIN_ID,
+  bridge: 'https://bridge.walletconnect.org',
+  qrcode: true
+})
+
+export const connectors: Record<Connectors, AbstractConnector> = {
+  [Connectors.Injected]: injected,
+  [Connectors.BSC]: walletbsc,
+  [Connectors.CoinbaseWallet]: walletlink,
+  [Connectors.WalletConnect]: walletconnect
 }
 
 export { utils }

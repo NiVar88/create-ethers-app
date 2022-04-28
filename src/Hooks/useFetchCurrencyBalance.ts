@@ -4,13 +4,13 @@ import { tokens } from '@/Constants'
 import { ERC20_ABI } from '@/Contracts'
 import { useMulticall } from '@/Hooks'
 import { userActions } from '@/Store'
-import { vy, differenceTime, Fraction, getBNBBalance } from '@/Utils'
-import { Token } from '@/Types'
+import { vy, differenceTime, Fraction } from '@/Utils'
+import type { Token } from '@/Types'
 
 export function useFetchCurrencyBalance() {
   // __STATE <React.Hooks>
   const dispatch = useDispatch()
-  const multiCalls = useMulticall(ERC20_ABI)
+  const multiCall = useMulticall(ERC20_ABI)
 
   // __FUNCTIONS
   const func = useCallback(
@@ -19,7 +19,7 @@ export function useFetchCurrencyBalance() {
 
       const t = differenceTime()
       const ignore = ['BNB', 'BTCB']
-      const results = await multiCalls(
+      const results = await multiCall(
         currencies
           .filter(({ address, symbol }) => !!address && ignore.indexOf(symbol) < 0)
           .map((currency) => ({
@@ -30,14 +30,13 @@ export function useFetchCurrencyBalance() {
       )
 
       if (results) {
-        const BNB = await getBNBBalance(account)
         const payload = tokens.map(({ address, symbol }) => {
           const find = results.findOne('address', address)
-          let value = find?.value.toString() || '0'
+          let value = find?.value || '0'
 
-          if (symbol === 'BNB') value = BNB
+          if (symbol === 'BNB') value = '0'
 
-          return { symbol, value: Fraction.from(value).dividedBy(Fraction.BASE).toString() }
+          return { symbol, value: Fraction.formatUnits(value) }
         })
 
         dispatch(userActions.setCurrencyBalance(payload))
@@ -47,7 +46,7 @@ export function useFetchCurrencyBalance() {
         console.warn(vy(), '❌ Currency Balance Fetch Failed.', t())
       }
     },
-    [dispatch]
+    [multiCall]
   )
 
   // __RETURN

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useClickAway } from 'react-use'
-import { useAuth, useModal } from '@/Hooks'
+import { useModal, useWalletConnection } from '@/Hooks'
 import { userSelector } from '@/Store'
 import { shortAddress } from '@/Utils'
 import { IModal as Modal, User } from '@/Types'
@@ -42,7 +42,7 @@ export function AccountComponent({ user }: { user: User }) {
   // __STATE <React.Hooks>
   const nodeRef = useRef<HTMLDivElement>(null)
   const [state, setState] = useState<boolean>(false)
-  const { signout } = useAuth()
+  const { disconnect } = useWalletConnection()
 
   // __EFFECTS
   useClickAway(nodeRef, () => setState(false), ['click'])
@@ -72,7 +72,7 @@ export function AccountComponent({ user }: { user: User }) {
             <span className='text'>collectables</span>
           </a>
 
-          <a className='btn btn-link' onClick={signout}>
+          <a className='btn btn-link' onClick={disconnect}>
             <span className='icon bi bi-box-arrow-right' style={{ color: 'var(--color-red)' }}></span>
             <span className='text'>disconnect</span>
           </a>

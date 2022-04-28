@@ -1,55 +1,53 @@
-import BN from 'bn.js'
-import BigNumber from 'bignumber.js'
-import {
-  PromiEvent,
-  TransactionReceipt,
-  EventResponse,
-  EventData,
-  Web3ContractContext
-} from 'ethereum-abi-types-generator'
+import { ContractTransaction, ContractInterface, BytesLike as Arrayish, BigNumber, BigNumberish } from 'ethers'
+import { EthersContractContextV5 } from 'ethereum-abi-types-generator'
 
-export interface CallOptions {
-  from?: string
-  gasPrice?: string
-  gas?: number
-}
-
-export interface SendOptions {
-  from: string
-  value?: number | string | BN | BigNumber
-  gasPrice?: string
-  gas?: number
-}
-
-export interface EstimateGasOptions {
-  from?: string
-  value?: number | string | BN | BigNumber
-  gas?: number
-}
-
-export interface MethodPayableReturnContext {
-  send(options: SendOptions): PromiEvent<TransactionReceipt>
-  send(options: SendOptions, callback: (error: Error, result: any) => void): PromiEvent<TransactionReceipt>
-  estimateGas(options: EstimateGasOptions): Promise<number>
-  estimateGas(options: EstimateGasOptions, callback: (error: Error, result: any) => void): Promise<number>
-  encodeABI(): string
-}
-
-export interface MethodConstantReturnContext<TCallReturn> {
-  call(): Promise<TCallReturn>
-  call(options: CallOptions): Promise<TCallReturn>
-  call(options: CallOptions, callback: (error: Error, result: TCallReturn) => void): Promise<TCallReturn>
-  encodeABI(): string
-}
-
-export interface MethodReturnContext extends MethodPayableReturnContext {}
-
-export type ContractContext = Web3ContractContext<
+export type ContractContext = EthersContractContextV5<
   Multicall,
   MulticallMethodNames,
   MulticallEventsContext,
   MulticallEvents
 >
+
+export declare type EventFilter = {
+  address?: string
+  topics?: Array<string>
+  fromBlock?: string | number
+  toBlock?: string | number
+}
+
+export interface ContractTransactionOverrides {
+  /**
+   * The maximum units of gas for the transaction to use
+   */
+  gasLimit?: number
+  /**
+   * The price (in wei) per unit of gas
+   */
+  gasPrice?: BigNumber | string | number | Promise<any>
+  /**
+   * The nonce to use in the transaction
+   */
+  nonce?: number
+  /**
+   * The amount to send with the transaction (i.e. msg.value)
+   */
+  value?: BigNumber | string | number | Promise<any>
+  /**
+   * The chain ID (or network ID) to use
+   */
+  chainId?: number
+}
+
+export interface ContractCallOverrides {
+  /**
+   * The address to execute the call as
+   */
+  from?: string
+  /**
+   * The maximum units of gas for the transaction to use
+   */
+  gasLimit?: number
+}
 export type MulticallEvents = undefined
 export interface MulticallEventsContext {}
 export type MulticallMethodNames =
@@ -67,27 +65,32 @@ export type MulticallMethodNames =
   | 'tryBlockAndAggregate'
 export interface AggregateRequest {
   target: string
-  callData: string | number[]
+  callData: Arrayish
 }
 export interface AggregateResponse {
-  blockNumber: string
+  blockNumber: BigNumber
+  0: BigNumber
   returnData: string[]
+  1: string[]
+  length: 2
 }
 export interface BlockAndAggregateRequest {
   target: string
-  callData: string | number[]
+  callData: Arrayish
 }
 export interface TryAggregateRequest {
   target: string
-  callData: string | number[]
+  callData: Arrayish
 }
 export interface ReturnDataResponse {
   success: boolean
+  0: boolean
   returnData: string
+  1: string
 }
 export interface TryBlockAndAggregateRequest {
   target: string
-  callData: string | number[]
+  callData: Arrayish
 }
 export interface Multicall {
   /**
@@ -97,7 +100,7 @@ export interface Multicall {
    * Type: function
    * @param calls Type: tuple[], Indexed: false
    */
-  aggregate(calls: AggregateRequest[]): MethodConstantReturnContext<AggregateResponse>
+  aggregate(calls: AggregateRequest[], overrides?: ContractCallOverrides): Promise<AggregateResponse>
   /**
    * Payable: false
    * Constant: false
@@ -105,7 +108,10 @@ export interface Multicall {
    * Type: function
    * @param calls Type: tuple[], Indexed: false
    */
-  blockAndAggregate(calls: BlockAndAggregateRequest[]): MethodReturnContext
+  blockAndAggregate(
+    calls: BlockAndAggregateRequest[],
+    overrides?: ContractTransactionOverrides
+  ): Promise<ContractTransaction>
   /**
    * Payable: false
    * Constant: true
@@ -113,42 +119,42 @@ export interface Multicall {
    * Type: function
    * @param blockNumber Type: uint256, Indexed: false
    */
-  getBlockHash(blockNumber: string): MethodConstantReturnContext<string>
+  getBlockHash(blockNumber: BigNumberish, overrides?: ContractCallOverrides): Promise<string>
   /**
    * Payable: false
    * Constant: true
    * StateMutability: view
    * Type: function
    */
-  getBlockNumber(): MethodConstantReturnContext<string>
+  getBlockNumber(overrides?: ContractCallOverrides): Promise<BigNumber>
   /**
    * Payable: false
    * Constant: true
    * StateMutability: view
    * Type: function
    */
-  getCurrentBlockCoinbase(): MethodConstantReturnContext<string>
+  getCurrentBlockCoinbase(overrides?: ContractCallOverrides): Promise<string>
   /**
    * Payable: false
    * Constant: true
    * StateMutability: view
    * Type: function
    */
-  getCurrentBlockDifficulty(): MethodConstantReturnContext<string>
+  getCurrentBlockDifficulty(overrides?: ContractCallOverrides): Promise<BigNumber>
   /**
    * Payable: false
    * Constant: true
    * StateMutability: view
    * Type: function
    */
-  getCurrentBlockGasLimit(): MethodConstantReturnContext<string>
+  getCurrentBlockGasLimit(overrides?: ContractCallOverrides): Promise<BigNumber>
   /**
    * Payable: false
    * Constant: true
    * StateMutability: view
    * Type: function
    */
-  getCurrentBlockTimestamp(): MethodConstantReturnContext<string>
+  getCurrentBlockTimestamp(overrides?: ContractCallOverrides): Promise<BigNumber>
   /**
    * Payable: false
    * Constant: true
@@ -156,14 +162,14 @@ export interface Multicall {
    * Type: function
    * @param addr Type: address, Indexed: false
    */
-  getEthBalance(addr: string): MethodConstantReturnContext<string>
+  getEthBalance(addr: string, overrides?: ContractCallOverrides): Promise<BigNumber>
   /**
    * Payable: false
    * Constant: true
    * StateMutability: view
    * Type: function
    */
-  getLastBlockHash(): MethodConstantReturnContext<string>
+  getLastBlockHash(overrides?: ContractCallOverrides): Promise<string>
   /**
    * Payable: false
    * Constant: true
@@ -172,7 +178,11 @@ export interface Multicall {
    * @param requireSuccess Type: bool, Indexed: false
    * @param calls Type: tuple[], Indexed: false
    */
-  tryAggregate(requireSuccess: boolean, calls: TryAggregateRequest[]): MethodConstantReturnContext<ReturnDataResponse[]>
+  tryAggregate(
+    requireSuccess: boolean,
+    calls: TryAggregateRequest[],
+    overrides?: ContractCallOverrides
+  ): Promise<ReturnDataResponse[]>
   /**
    * Payable: false
    * Constant: false
@@ -181,5 +191,9 @@ export interface Multicall {
    * @param requireSuccess Type: bool, Indexed: false
    * @param calls Type: tuple[], Indexed: false
    */
-  tryBlockAndAggregate(requireSuccess: boolean, calls: TryBlockAndAggregateRequest[]): MethodReturnContext
+  tryBlockAndAggregate(
+    requireSuccess: boolean,
+    calls: TryBlockAndAggregateRequest[],
+    overrides?: ContractTransactionOverrides
+  ): Promise<ContractTransaction>
 }

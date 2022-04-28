@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react'
 import { configs } from '@/Constants'
-import { useWeb3ReactCore, useAuth, useFetchCurrencyBalance } from '@/Hooks'
+import { useWeb3ReactCore, useFetchCurrencyBalance, useWalletConnection, useTheme } from '@/Hooks'
 import { AuthService } from '@/Services/auth.service'
 import { getCookie } from '@/Utils'
 import { Connectors } from '@/Types'
-import { GivenConnector } from '@/Utils/web3'
+import { getCurrentConnector } from '@/Utils/ethers'
 
 export function WatcherContainer() {
   // __STATE <React.Hooks>
   const { account } = useWeb3ReactCore()
-  const { signin } = useAuth()
+  const { connect } = useWalletConnection()
 
   const [onFetchBalance] = useFetchCurrencyBalance()
   const [started, setStarted] = useState<any[]>([])
+
+  useTheme()
 
   // __EFFECTS
   useEffect(() => {
@@ -24,13 +26,13 @@ export function WatcherContainer() {
       }
     } else {
       const connector: Connectors = getCookie(configs.APP_USER_CONNECTOR)
-      if (connector) signin(connector)
+      if (connector) connect(connector)
       else AuthService.signout()
     }
-  }, [account, signin])
+  }, [account, connect])
 
   useEffect(() => {
-    const connector = GivenConnector()
+    const connector = getCurrentConnector()
     if (connector && !started[1]) {
       const { BinanceChain: binance, ethereum } = window
       const accountListener = (accounts: string[]) => {
@@ -60,7 +62,7 @@ export function WatcherContainer() {
 
   useEffect(() => {
     if (started[0]) clearInterval(started[0])
-    if (account && 0) {
+    if (account) {
       const intervalId = setInterval(() => onFetchBalance(account), 2e4)
       onFetchBalance(account)
       setStarted((prev) => {

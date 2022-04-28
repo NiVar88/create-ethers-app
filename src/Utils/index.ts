@@ -1,15 +1,14 @@
 import { format } from 'date-fns'
 
-export { getLibrary, connectorsBy, simpleRpcProvider } from './connectors'
 export { cookies, attrCookie, getCookie, setCookie, removeCookie } from './cookies'
 export { DefineProperty } from './defineProperty'
 export { dialog } from './dialog'
+export { connectors, shortAddress } from './ethers'
 export { Fraction } from './fraction'
 export { createObjectURL, getFileListAt, getMediaBlob } from './media'
 export { modal } from './modal'
 export { notice } from './notice'
 export { session, storage } from './storage'
-export { shortAddress, getBNBBalance } from './web3'
 
 export function vy() {
   const d = format(Date.now(), 'yyyy-MM-dd hh:mm:ss a')
