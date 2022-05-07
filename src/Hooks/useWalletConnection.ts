@@ -35,7 +35,7 @@ export function useWalletConnection(): CallbackInterface {
         } else if (error instanceof NoEthereumProviderError || error instanceof NoBscProviderError) {
           notice.error({ title: 'Provider Error', content: 'No provider was found.' })
         } else {
-          notice.warn({ title: 'Something was wrong!', content: 'Please try again.' })
+          notice.warn({ title: 'Something was wrong!', content: error.name || 'Please try again.' })
         }
 
         removeCookie(configs.APP_USER_CONNECTOR)

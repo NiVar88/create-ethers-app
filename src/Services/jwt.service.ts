@@ -7,7 +7,7 @@ interface Payload {
 }
 
 export class JWT {
-  static async audit<T extends Payload>(cookieName: string): Promise<T | void> {
+  static async audit<T extends Payload>(cookieName: string): Promise<T | Void> {
     const cookie = getCookie(cookieName)
 
     if (cookie) {

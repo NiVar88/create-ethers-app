@@ -23,18 +23,6 @@ export function givenLibrary(provider: any): Web3Provider {
 }
 
 /**
- * Get current web3 provider.
- */
-export function getWeb3Provider(): Web3Provider | Void {
-  const { web3 } = window
-  if (web3) {
-    return new Web3Provider(web3.currentProvider)
-  }
-
-  return void 0
-}
-
-/**
  * Get current wallet connector.
  */
 export function getCurrentConnector(): Connectors | Void {
@@ -77,19 +65,17 @@ export function shortAddress(address?: string | null): string {
   }
 }
 
-export const injected = new InjectedConnector({ supportedChainIds: [ChainId.BSC, ChainId.BSC_TESTNET] })
+export const injected = new InjectedConnector({})
 
-export const walletbsc = new BscConnector({ supportedChainIds: [ChainId.BSC, ChainId.BSC_TESTNET] })
+export const walletbsc = new BscConnector({})
 
 export const walletlink = new WalletLinkConnector({
   appName: configs.APP_NAME,
-  url: getRpcUrl(),
-  supportedChainIds: [ChainId.BSC, ChainId.BSC_TESTNET]
+  url: getRpcUrl()
 })
 
 export const walletconnect = new WalletConnectConnector({
   rpc: getRpcUrl(),
-  chainId: configs.DEFAULT_CHAIN_ID,
   bridge: 'https://bridge.walletconnect.org',
   qrcode: true
 })

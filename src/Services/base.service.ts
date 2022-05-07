@@ -1,69 +1,95 @@
-import { AxiosInstance, AxiosRequestConfig } from 'axios'
+import { AxiosInstance, AxiosRequestConfig, CancelTokenSource } from 'axios'
 import { addDays } from 'date-fns'
 import { configs } from '@/Constants'
 import { JWT } from '@/Services/jwt.service'
 import { getCookie, setCookie, attrCookie } from '@/Utils'
-import Axios from '@/Utils/axios'
+import Axios, { CancelToken } from '@/Utils/axios'
 
 export class BaseService {
   static $axios: AxiosInstance = Axios
+  static $source: CancelTokenSource = CancelToken.source()
 
-  static async get<D = any>(url: string, config?: AxiosRequestConfig): Promise<D | void> {
+  static async get<D = any>(url: string, config?: AxiosRequestConfig): Promise<D | Void> {
     const v = await this.verify()
     if (v) {
       try {
-        const response = await this.$axios.get<D>(url, config)
+        const response = await this.$axios.get<D>(url, {
+          ...config,
+          cancelToken: this.$source.token
+        })
+
         return response.data
       } catch (error) {
         console.log(error)
+        return void 0
       }
     }
   }
 
-  static async post<D = any, T = any>(url: string, data?: T, config?: AxiosRequestConfig): Promise<D | void> {
+  static async post<D = any, T = any>(url: string, data?: T, config?: AxiosRequestConfig): Promise<D | Void> {
     const v = await this.verify()
     if (v) {
       try {
-        const response = await this.$axios.post<D>(url, data, config)
+        const response = await this.$axios.post<D>(url, data, {
+          ...config,
+          cancelToken: this.$source.token
+        })
+
         return response.data
       } catch (error) {
         console.log(error)
+        return void 0
       }
     }
   }
 
-  static async put<D = any, T = any>(url: string, data?: T, config?: AxiosRequestConfig): Promise<D | void> {
+  static async put<D = any, T = any>(url: string, data?: T, config?: AxiosRequestConfig): Promise<D | Void> {
     const v = await this.verify()
     if (v) {
       try {
-        const response = await this.$axios.put<D>(url, data, config)
+        const response = await this.$axios.put<D>(url, data, {
+          ...config,
+          cancelToken: this.$source.token
+        })
+
         return response.data
       } catch (error) {
         console.log(error)
+        return void 0
       }
     }
   }
 
-  static async patch<D = any, T = any>(url: string, data?: T, config?: AxiosRequestConfig): Promise<D | void> {
+  static async patch<D = any, T = any>(url: string, data?: T, config?: AxiosRequestConfig): Promise<D | Void> {
     const v = await this.verify()
     if (v) {
       try {
-        const response = await this.$axios.patch<D>(url, data, config)
+        const response = await this.$axios.patch<D>(url, data, {
+          ...config,
+          cancelToken: this.$source.token
+        })
+
         return response.data
       } catch (error) {
         console.log(error)
+        return void 0
       }
     }
   }
 
-  static async delete<D = any>(url: string, config?: AxiosRequestConfig): Promise<D | void> {
+  static async delete<D = any>(url: string, config?: AxiosRequestConfig): Promise<D | Void> {
     const v = await this.verify()
     if (v) {
       try {
-        const response = await this.$axios.delete<D>(url, config)
+        const response = await this.$axios.delete<D>(url, {
+          ...config,
+          cancelToken: this.$source.token
+        })
+
         return response.data
       } catch (error) {
         console.log(error)
+        return void 0
       }
     }
   }
@@ -108,5 +134,9 @@ export class BaseService {
     }
 
     return false
+  }
+
+  static cancelRequest() {
+    return this.$source.cancel()
   }
 }

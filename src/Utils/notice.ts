@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { dispatch, appActions } from '@/Store'
 
 export interface Notice {
-  vid: string
+  vid?: string
   visible: boolean
   type: 'info' | 'success' | 'warn' | 'error'
   name?: string
@@ -11,12 +11,12 @@ export interface Notice {
   duration?: number
 }
 
-export type NoticeOptions = Omit<Notice, 'vid' | 'visible' | 'type'>
+export interface NoticeOptions extends Omit<Notice, 'visible' | 'type'> {}
 
 const defaultOptions = { visible: true, duration: 3e3 }
 
-function setNotice(options: Omit<Notice, 'vid'>) {
-  const vid = Math.random().toString(16).slice(2)
+function setNotice(options: Notice) {
+  const vid = options.vid || Math.random().toString(16).slice(2)
   const action = appActions.setNotice({ ...options, vid })
   dispatch(action)
 

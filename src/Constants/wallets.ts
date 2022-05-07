@@ -16,10 +16,15 @@ export const Wallets: Wallet[] = [
     mobile: true
   },
   {
+    connector: Connectors.CoinbaseWallet,
+    name: 'CoinbaseWallet',
+    icon: 'coinbase-wallet.svg',
+    description: 'Coinbase Wallet is a self-custody crypto wallet.'
+  },
+  {
     connector: Connectors.BSC,
     name: 'Binance Chain Wallet',
     icon: 'binance-chain-wallet.svg',
-    description: 'Login using Binance hosted wallet',
-    mobile: true
+    description: 'Login using Binance hosted wallet'
   }
 ]

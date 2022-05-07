@@ -1,14 +1,20 @@
 import { configs, RPCS } from '@/Constants'
 import { ChainId, Connectors, Token } from '@/Types'
-import { getCookie } from './cookies'
+import { getCurrentConnector } from './ethers'
 
 export function setNetwork() {
   const { ethereum, BinanceChain: binance } = window
 
-  const connectorName: Connectors = getCookie(configs.APP_USER_CONNECTOR)
+  const connectorName = getCurrentConnector()
+
+  if (!connectorName) return void 0
 
   switch (connectorName) {
-    case Connectors.Injected:
+    case Connectors.BSC:
+      if (binance) binance.switchNetwork(configs.isMainnet ? 'bsc-mainnet' : 'bsc-testnet')
+      break
+
+    default:
       if (!ethereum) return void 0
 
       const chainId: ChainId = configs.DEFAULT_CHAIN_ID
@@ -40,10 +46,6 @@ export function setNetwork() {
           })
         }
       }
-      break
-
-    case Connectors.BSC:
-      if (binance) binance.switchNetwork(configs.isMainnet ? 'bsc-mainnet' : 'bsc-testnet')
       break
   }
 }

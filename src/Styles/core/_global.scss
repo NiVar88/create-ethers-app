@@ -21,5 +21,25 @@
       padding: 2rem;
     }
   }
+
+  // For notice content.
+  &-notice {
+    &-network {
+      display: flex;
+
+      .desc {
+        margin-right: 0.25rem;
+      }
+
+      .btn {
+        &-switch {
+          .text {
+            color: var(--color-blue);
+            font-size: var(--font-size-small);
+          }
+        }
+      }
+    }
+  }
 }
 

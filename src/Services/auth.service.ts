@@ -2,7 +2,6 @@ import { configs } from '@/Constants'
 import { BaseService } from '@/Services/base.service'
 import { dispatch, userActions } from '@/Store'
 import { getCookie, setCookie, removeCookie, attrCookie, generateId, notice } from '@/Utils'
-import { getCurrentConnector, getWeb3Provider } from '@/Utils/ethers'
 import { Connectors, IUser } from '@/Types'
 import { formatISO } from 'date-fns'
 import JWT from 'jsonwebtoken'
@@ -13,10 +12,7 @@ export class AuthService extends BaseService {
    *
    * @param {string} address
    */
-  static async signin(address: string): Promise<void> {
-    // const nonce = await this.getNonce(address)
-    const signature = await this.getSignature(`Sign-In: ${generateId()}`, address)
-
+  static async signin(address: string, signature: string): Promise<void> {
     if (signature) {
       // const responce = await this.$axios.post('/auth/verifySignature', { address, signature })
       // if (responce) {
@@ -45,45 +41,13 @@ export class AuthService extends BaseService {
    *
    * @param {string} address Wallet Address
    */
-  static async getNonce(address: string): Promise<any> {
-    const response = await this.$axios.get<{ nonce: number }>(`/auth/nonce/${address}`)
-    if (response.data) {
-      return response.data.nonce
-    }
+  static async getNonce(address: string): Promise<string> {
+    // const response = await this.$axios.get<{ nonce: number }>(`/auth/nonce/${address}`)
+    // if (response.data) {
+    //   return response.data.nonce
+    // }
 
-    return void 0
-  }
-
-  /**
-   * GET signature
-   *
-   * @param {string} dataToSign
-   * @param {string} address
-   */
-  static async getSignature(dataToSign: string, address: string) {
-    const connector = getCurrentConnector()
-
-    if (!connector) return void 0
-
-    let signature: string = ''
-
-    switch (connector) {
-      case Connectors.BSC:
-        const { BinanceChain } = window
-        const results = await BinanceChain!.bnbSign(address, dataToSign)
-        signature = results.signature
-        break
-
-      default:
-        const provider = getWeb3Provider()
-        if (provider) {
-          const signer = provider.getSigner(address)
-          signature = await signer.signMessage(dataToSign)
-        }
-        break
-    }
-
-    return signature
+    return generateId()
   }
 
   /**

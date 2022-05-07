@@ -29,7 +29,7 @@ export function NoticeItem({ record, icon, onRemove }: NoticeItemProps) {
   // __RENDER
   return (
     <CSSTransition nodeRef={nodeRef} in={visible} timeout={320} unmountOnExit={true} onExited={() => onRemove(record)}>
-      <div className='ui--notice-item' ref={nodeRef}>
+      <div className='ui--notice-item' data-vid={record.vid} ref={nodeRef}>
         <div className={cls('ui--notice-icon', record.type)}>
           <span className={cls('icon', 'bi', icon)}></span>
         </div>

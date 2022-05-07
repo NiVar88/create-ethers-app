@@ -48,8 +48,8 @@ export default createReducer(initialState, (builder) => {
     .addCase(setNotice, (state, { payload }) => {
       if (payload) {
         const { vid } = payload
-        if (regex.test(vid)) {
-          const _vid = vid.replace(regex, '').trim()
+        if (regex.test(vid!)) {
+          const _vid = vid!.replace(regex, '').trim()
           state.notice = state.notice.remove('vid', _vid)
         } else {
           state.notice = [...state.notice, payload]

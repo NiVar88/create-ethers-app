@@ -46,3 +46,4 @@ Axios.interceptors.request.use((reqConfig) => {
 // )
 
 export default Axios
+export const { CancelToken } = axios
