@@ -1,11 +1,9 @@
 import { useCallback, useState, useTransition } from 'react'
 import { ModalComponent } from '@/Components'
 import { configs } from '@/Constants'
-import { useModal } from '@/Hooks'
+import { useERC721Contract, useModal } from '@/Hooks'
 import { BaseService } from '@/Services/base.service'
-import { dialog } from '@/Utils'
-import { FormLabs } from './Components/form'
-import JWT from 'jsonwebtoken'
+import { dialog, Fraction } from '@/Utils'
 import '@Styles/pages/labs.scss'
 
 export default function LabsContainer() {
@@ -14,6 +12,7 @@ export default function LabsContainer() {
   const [isPadding, startTransition] = useTransition()
 
   const modal = useModal({ className: 'modal-labs' })
+  const contract = useERC721Contract('0x7FB2f667CEa0d8c0939761eFB49C4d9162cfbE10')
 
   // __FUNCTIONS
   const handleClick = useCallback(() => {
@@ -39,6 +38,12 @@ export default function LabsContainer() {
     const r = await BaseService.get('todos/1')
     console.log(r)
   }, [])
+
+  const handleGetNft = useCallback(async () => {
+    // contract.mint('0x0', Fraction.ZERO, '', '')
+    const resp = await contract.balanceOf('0xbd5545fC37EC04ccB92Ef0754f7dbDc1BA9a25A4')
+    console.log(resp)
+  }, [contract])
 
   // __EFFECTS
 
@@ -74,9 +79,11 @@ export default function LabsContainer() {
           <button className='btn btn-primary' onClick={handleService}>
             <span className='text'>service</span>
           </button>
-        </div>
 
-        <FormLabs />
+          <button className='btn btn-primary' onClick={handleGetNft}>
+            <span className='text'>get nft</span>
+          </button>
+        </div>
       </div>
     </div>
   )

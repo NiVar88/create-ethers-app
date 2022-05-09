@@ -12,7 +12,7 @@ export function useMulticall(contractAbi: string | readonly (string | Fragment |
   return useCallback(
     async (calls: Call[]) => {
       try {
-        const resp = await contract.aggregate(
+        const resp = await contract?.aggregate(
           calls.map(({ address, method, params }) => ({
             target: address,
             callData: contractInterface.encodeFunctionData(method, params)

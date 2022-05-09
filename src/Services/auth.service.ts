@@ -41,7 +41,7 @@ export class AuthService extends BaseService {
    *
    * @param {string} address Wallet Address
    */
-  static async getNonce(address: string): Promise<string> {
+  static async getNonce(address: string): Promise<string | void> {
     // const response = await this.$axios.get<{ nonce: number }>(`/auth/nonce/${address}`)
     // if (response.data) {
     //   return response.data.nonce

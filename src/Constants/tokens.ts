@@ -28,10 +28,10 @@ export const Tokens: Record<string, Token> = {
   BTCB: {
     id: '.btcb',
     icon: '/static/images/tokens/BTC.svg',
-    name: 'Binance BTC',
+    name: 'Binance-Peg BTCB Token (BTCB)',
     symbol: 'BTCB',
     address: setAddress({
-      [ChainId.BSC]: null,
+      [ChainId.BSC]: '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
       [ChainId.BSC_TESTNET]: '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c'
     })
   },
@@ -165,17 +165,6 @@ export const Tokens: Record<string, Token> = {
     address: setAddress({
       [ChainId.BSC]: '0x715D400F88C167884bbCc41C5FeA407ed4D2f8A0',
       [ChainId.BSC_TESTNET]: null
-    })
-  },
-
-  PEACH: {
-    id: '.peach',
-    icon: '/static/images/tokens/PEACH.svg',
-    name: 'PEACH Token',
-    symbol: 'PEACH',
-    address: setAddress({
-      [ChainId.BSC]: null,
-      [ChainId.BSC_TESTNET]: '0x5081F7d88Cba44e88225Cb177c41e16c1635e22A'
     })
   }
 }

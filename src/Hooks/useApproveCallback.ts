@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
-import { useWeb3React as useWeb3ReactCore } from '@web3-react/core'
+import { useUserProfile } from '@/Hooks'
 import { useERC20Contract } from './useContractFactory'
 import { useTokenAllowance } from './useTokenAllowance'
 import { GAS_PRICE_GWEI } from '@/Constants'
@@ -17,15 +17,15 @@ export type ApproveCallback = [ApproveFunction, ApproveStatus]
  */
 export function useApproveCallback(address: string, spender: string): ApproveCallback {
   // __STATE <React.Hooks>
-  const { account } = useWeb3ReactCore()
   const [approveStatus, setApproveStatus] = useState<ApproveStatus>(ApproveStatus.APPROVED)
 
+  const user = useUserProfile()
   const contract = useERC20Contract(address)
   const allowance = useTokenAllowance(address, spender)
 
   // __FUNCTIONS
   const approve = useCallback(async () => {
-    if (!account) return void 0
+    if (!user?.address) return void 0
 
     if (approveStatus !== ApproveStatus.NOT_APPROVED) {
       console.error('approve was called unnecessarily')
@@ -48,7 +48,7 @@ export function useApproveCallback(address: string, spender: string): ApproveCal
       console.error('Failed to approve token', error)
       throw error
     }
-  }, [account, address, approveStatus, contract])
+  }, [user, address, approveStatus, contract])
 
   // __EFFECTS
   useEffect(() => {
