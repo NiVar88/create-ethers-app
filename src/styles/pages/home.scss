@@ -1,0 +1,16 @@
+.ui--home {
+  &-container {
+    height: 100%;
+
+    .lorem {
+      max-width: 720px;
+      margin: 0 auto;
+
+      .image {
+        border-radius: var(--border-radius-large);
+        outline: 1px dashed var(--color-space);
+        outline-offset: -1rem;
+      }
+    }
+  }
+}

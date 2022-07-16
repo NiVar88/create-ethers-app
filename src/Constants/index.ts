@@ -1,8 +1,0 @@
-export * as configs from './configs'
-export { Addresses } from './addresses'
-export { default as axios } from './axios'
-export { Fruit } from './fruit'
-export { GAS_PRICE, GAS_PRICE_GWEI } from './gas'
-export { RPCS } from './rpcs'
-export { Tokens, tokens } from './tokens'
-export { Wallets } from './wallets'

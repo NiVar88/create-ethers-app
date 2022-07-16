@@ -1,0 +1,112 @@
+.ui--notice {
+  position: fixed;
+  top: 6.5rem;
+  right: 1rem;
+  z-index: 50;
+  pointer-events: none;
+
+  &-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2.75rem 1fr;
+    width: fit-content;
+    min-width: 275px;
+    max-width: 425px;
+    margin-left: auto;
+    pointer-events: all;
+    transition: all var(--animation-time) ease;
+    border-radius: var(--border-radius-medium);
+    box-shadow: 0 2px 6px rgba(#0e121f, 0.04);
+
+    &:not(:last-child) {
+      margin: 0 0 1rem auto;
+    }
+
+    &.enter,
+    &.exit-active {
+      opacity: 0;
+      transform: translateX(0.5rem);
+    }
+
+    &.enter-active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  &-icon {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    border-radius: var(--border-radius-medium) 0 0 var(--border-radius-medium);
+
+    .icon {
+      margin: 0.88rem 0 0;
+      color: white;
+      font-size: var(--font-size-large);
+    }
+
+    &.info {
+      background-color: var(--color-blue);
+    }
+
+    &.success {
+      background-color: var(--color-green);
+    }
+
+    &.warn {
+      background-color: var(--color-orange);
+    }
+
+    &.error {
+      background-color: var(--color-red);
+    }
+  }
+
+  &-content {
+    padding: 1rem 2.5rem 1rem 1rem;
+    background-color: white;
+    border-radius: 0 var(--border-radius-medium) var(--border-radius-medium) 0;
+
+    .title {
+      color: var(--color-black-500);
+      font-size: var(--font-size-medium);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .content {
+      margin: 0.25rem 0 0;
+      color: var(--color-black-400);
+      font-size: var(--font-size-small);
+
+      b {
+        font-weight: var(--font-weight-bold);
+      }
+    }
+  }
+
+  &-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    padding: 0.35rem 0.25rem 0 0;
+
+    .btn {
+      &-close {
+        width: 26px;
+        height: 26px;
+        padding: 0;
+        color: var(--color-black-500);
+
+        &:hover {
+          color: var(--color-red);
+        }
+
+        .icon {
+          font-size: var(--font-size-small);
+        }
+      }
+    }
+  }
+}

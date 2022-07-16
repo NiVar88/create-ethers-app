@@ -1,0 +1,19 @@
+runtime: nodejs16 # or another supported version
+
+# >_ Production;
+# instance_class: F4
+# service: app
+
+# >_ Development;
+instance_class: F1
+service: testnet
+
+env: standard
+
+inbound_services:
+  - warmup
+
+handlers:
+  - url: /.*
+    secure: always
+    script: auto
