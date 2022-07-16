@@ -1,0 +1,51 @@
+// SET global classes.
+.ui- {
+  &-app {
+    &-wrapper {
+      position: relative;
+      display: grid;
+      grid-template-rows: 4rem 1fr 4rem;
+      min-height: 100vh;
+
+      .container {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+    }
+  }
+
+  &-router {
+    &-view {
+    }
+  }
+
+  &-media {
+    width: 100%;
+    height: 100%;
+  }
+
+  // For notice content.
+  &-notice {
+    &-network {
+      display: flex;
+
+      .desc {
+        margin-right: 0.25rem;
+      }
+
+      .btn {
+        &-switch {
+          height: auto;
+          padding: 0;
+          
+          .text {
+            color: var(--color-blue);
+            font-size: var(--font-size-small);
+          }
+        }
+      }
+    }
+  }
+}
+

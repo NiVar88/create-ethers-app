@@ -1,0 +1,34 @@
+/**
+  =========================================================
+  * This website is produced by Unknown Co., ltd.
+  * e-mail: {emailAddress}
+  * website: {website}
+  =========================================================
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+**/
+
+// Core Styles
+@import 
+  'core/variable',
+  'core/mixin',
+  'core/reset',
+  'core/global';
+
+// Global Components
+@import 
+  'components/avatar',
+  'components/button',
+  'components/loader',
+  'components/modal',
+  'components/notice';
+
+// Specific Components
+@import 
+  'components/header',
+  'components/footer',
+  'components/connect-wallet';
+
+// Pages Styles
+@import
+  'pages/home.scss',
+  'pages/profile.scss';

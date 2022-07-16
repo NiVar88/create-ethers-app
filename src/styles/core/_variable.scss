@@ -1,0 +1,52 @@
+// SET global variable
+:root {
+  // Color's
+  --color-red             : #EB4747;
+  --color-orange          : #F2994A;
+  --color-yellow          : #F6CF56;
+  --color-green           : #3FC66D;
+  --color-blue            : #105EFB;
+  --color-purple          : #6F2F97;
+  --color-gold            : #C6BC9D;
+
+  --color-primary         : #1B2430;
+  --color-secondary       : #EEEEEE;
+
+  --color-space           : #FFFFFF;
+  --color-space-1         : #646FD4;
+  --color-space-2         : #92B4EC;
+  --color-space-3         : #FFE69A;
+  --color-space-4         : #FFD24C;
+
+  --color-desc-1          : #3C415C;
+  --color-desc-2          : #727988;
+
+  --color-border-1        : #F6FBF4;
+  --color-border-2        : #F2F2F2;
+
+  // Font's
+  --font-family-primary   : 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-family-code      : Consolas, Menlo, Courier, monospace;
+  --font-size-larger      : 24px;
+  --font-size-large       : 20px;
+  --font-size-regular     : 16px;
+  --font-size-medium      : 14px;
+  --font-size-small       : 12px;
+  --font-size-smaller     : 10px;
+  --font-weight-black     : 800;
+  --font-weight-bold      : 700;
+  --font-weight-medium    : 600;
+  --font-weight-regular   : 500;
+  --font-weight-light     : 400;
+  --font-weight-thin      : 300;
+
+  // Border
+  --border-radius-small   : 4px;
+  --border-radius-medium  : 8px;
+  --border-radius-large   : 16px;
+
+  // Animation
+  --animation-time        : 320ms;
+  --transition-time       : 128ms;
+  --cubic-bezier          : cubic-bezier(0.77, 0, 0.175, 1);
+}

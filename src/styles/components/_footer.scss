@@ -1,0 +1,16 @@
+.ui--footer {
+  position: relative;
+  color: var(--color-secondary);
+  background-color: var(--color-primary);
+
+  &-container {
+    display: grid;
+    grid-auto-flow: column;
+    padding: 0 2rem;
+    height: 100%;
+
+    i {
+      align-self: center;
+    }
+  }
+}

@@ -1,0 +1,39 @@
+.btn {
+  position: relative;
+  display: grid;
+  gap: 0.25rem;
+  grid-auto-flow: column;
+  justify-content: center;
+  align-items: center;
+  height: 2.25rem;
+  border-radius: var(--border-radius-small);
+  transition: all var(--transition-time) ease;
+
+  &-text {
+    &:hover {
+      .text {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &-primary {
+    color: var(--color-primary);
+    background-color: var(--color-space-4);
+  }
+
+  &-secondary {
+    color: var(--color-primary);
+    background-color: var(--color-space-1);
+  }
+
+  &-overlay {
+    background-color: var(--color-secondary);
+  }
+
+  &:disabled,
+  &.disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+  }
+}
