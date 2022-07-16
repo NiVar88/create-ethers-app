@@ -4,16 +4,16 @@
 /node_modules
 
 # production
+/.next
 /dist
-/build
 
 # misc
 .DS_Store
 .netlify
 .vercel
 .idea
-*.pem
 .firebase
+*.pem
 
 # local env files
 # .env
