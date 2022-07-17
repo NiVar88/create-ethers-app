@@ -4,23 +4,22 @@ import type { Notice } from '@/types'
 import { getCurrentContant } from './register'
 import cls from 'classnames'
 
-export interface NoticeItemProps {
+export interface Props {
   record: Notice
   icon: string
   onRemove: (notice: Notice) => void
 }
 
-export function NoticeItem({ record, icon, onRemove }: NoticeItemProps) {
+export function NoticeItem({ record, icon, onRemove }: Props) {
   // __STATE <React.Hooks>
   const nodeRef = useRef<HTMLDivElement>(null)
-
-  const [visible, setVisible] = useState<boolean>(false)
   const duration = useMemo(() => record.duration, [])
+  const [visible, setVisible] = useState<boolean>(false)
 
   // __EFFECTS
   useEffect(() => {
     if (record.visible) {
-      setTimeout(() => setVisible(true), 64)
+      setTimeout(() => setVisible(true), 128)
     } else {
       setVisible(false)
     }
@@ -37,7 +36,7 @@ export function NoticeItem({ record, icon, onRemove }: NoticeItemProps) {
 
   // __RENDER
   return (
-    <CSSTransition nodeRef={nodeRef} in={visible} timeout={320} unmountOnExit={true} onExited={() => onRemove(record)}>
+    <CSSTransition nodeRef={nodeRef} in={visible} timeout={320} unmountOnExit onExited={() => onRemove(record)}>
       <div className='ui--notice-item' ref={nodeRef}>
         <div className={cls('ui--notice-icon', record.type)}>
           <span className={cls('icon', 'bi', icon)}></span>
