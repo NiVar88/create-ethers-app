@@ -7,7 +7,7 @@
     "start:dev": "next dev --port 8443",
     "start": "next start",
     "build": "next build",
-    "prebuild": "rimraf .dist",
+    "prebuild": "rimraf dist",
     "export": "next build && next export",
     "deploy": "gcloud app deploy app.yaml --project alice",
     "predeploy": "npm run build",

@@ -1,37 +1,37 @@
-import { existsSync, readFileSync, writeFileSync } from 'fs'
+import { existsSync, readFileSync, unlinkSync, writeFileSync } from 'fs'
 import { join } from 'path'
 
 export class Store {
-  public isConnected: boolean = false
-  public pathFile: string = ''
-  public state: any = null
+  public isConnected: boolean
+  public pathFile: string
 
-  constructor(name: string, initState: any = {}) {
-    this.pathFile = join(__dirname, `./_${name}.json`)
+  constructor(name: string, public state: any) {
+    this.pathFile = join(`data/_${name}.json`)
 
     if (existsSync(this.pathFile)) {
       const data = readFileSync(this.pathFile, 'utf8')
-      this.state = JSON.parse(data || initState)
+      if (data) {
+        this.state = JSON.parse(data)
+      }
     } else {
       writeFileSync(this.pathFile, '')
-      this.state = initState
     }
 
     this.isConnected = true
   }
 
-  public setState(changes: any = {}) {
+  public setState(changes: any) {
     if (this.isConnected) {
-      // assigning changes to current state
-      Object.assign(this.state, changes)
-      writeFileSync(this.pathFile, JSON.stringify(this.state), { flag: 'w', encoding: 'utf8' })
+      const data = this.state || {}
+      writeFileSync(this.pathFile, JSON.stringify(data), { flag: 'w', encoding: 'utf8' })
+      Object.assign(data, changes)
     }
   }
 
   public clear() {
-    if (this.isConnected && this.pathFile) {
+    if (this.isConnected) {
       this.state = null
-      writeFileSync(this.pathFile, '')
+      unlinkSync(this.pathFile)
     }
   }
 }
