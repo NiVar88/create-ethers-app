@@ -6,7 +6,6 @@
 # production
 /.next
 /dist
-/data
 
 # misc
 .DS_Store
