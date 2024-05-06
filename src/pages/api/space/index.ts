@@ -1,10 +1,20 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { readdirSync } from 'fs'
+import { constants, copyFileSync, readdirSync } from 'fs'
 import { join } from 'path'
 import { ffprobe } from 'fluent-ffmpeg'
 import type { FfprobeData } from 'fluent-ffmpeg'
 import { Store } from '@/utils/store'
 import { generateId } from '@/utils'
+
+interface IQuery {
+  album?: any
+  track?: any
+}
+
+interface IBody {
+  rootDir: string
+  ignoreDir?: string[]
+}
 
 interface IAlbum {
   id: string
@@ -38,45 +48,66 @@ interface ITrack {
   createdAt?: string | number
 }
 
-const albums = new Store('albums', [] as IAlbum[])
-const tracks = new Store('tracks', [] as ITrack[])
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const albums = new Store('albums', [] as IAlbum[])
+  const tracks = new Store('tracks', [] as ITrack[])
+
   switch (req.method) {
     case 'GET':
-      res.json({
-        albums: albums.state,
-        tracks: tracks.state
-      })
+      const { album, track }: IQuery = req.query
+
+      if (album && track)
+        res.json({
+          albums: albums.getState(),
+          tracks: tracks.getState()
+        })
+      else if (album) res.json(albums.getState())
+      else if (track) res.json(tracks.getState())
+      else res.json([])
       break
 
     case 'POST':
-      const { rootDir } = req.body
+      const { rootDir, ignoreDir }: IBody = req.body
       let [__albums, __tracks]: [IAlbum[], ITrack[]] = [[], []]
 
+      if (!rootDir) {
+        res.status(400)
+        res.json({ error: 'Parameter `rootDir` is required.' })
+        return void 0
+      }
+
       const __dirSync = (path: string) => readdirSync(path, { withFileTypes: true })
-      const __func = (path: string, f: 'isFile' | 'isDirectory') =>
-        __dirSync(path)
-          .filter((r) => r[f]())
-          .map((r) => join(path, r.name))
 
       __albums = __dirSync(rootDir)
-        .filter((r) => r.isDirectory())
+        .filter((r) => r.isDirectory() && ignoreDir && ignoreDir.indexOf(r.name) < 0)
         .map((r) => {
           let path = join(rootDir, r.name)
+          let id = generateId()
+          let posters = __dirSync(path)
+            .filter((poster) => poster.isFile() && poster.name.match(/.jpg|.png/gi))
+            .map(({ name }) => {
+              let source = join(path, name)
+              let target = `static/media/posters/${id}.${name.split('.')[1]}`
+
+              copyFileSync(source, `public/${target}`, constants.COPYFILE_EXCL)
+              return `/${target}`
+            })
+
           return {
-            id: generateId(),
+            id,
             name: r.name,
-            posters: __func(path, 'isFile'),
+            posters,
             directory: {
               base: path,
-              episode: __func(path, 'isDirectory')
+              episode: __dirSync(path)
+                .filter((r) => r.isDirectory())
+                .map((r) => join(path, r.name))
             }
           }
         })
       albums.setState(__albums)
 
-      for (const album of __albums) {
+      for await (const album of __albums) {
         album.directory.episode.forEach((episodeDir: string) => {
           __dirSync(episodeDir).forEach((track) => {
             ffprobe(join(episodeDir, track.name), (err, data) => {
@@ -90,10 +121,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         })
       }
 
-      res.json({
-        albums: albums.state,
-        tracks: tracks.state
-      })
+      res.status(201)
+      res.send('Update success.')
       break
 
     case 'DELETE':

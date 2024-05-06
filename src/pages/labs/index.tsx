@@ -1,10 +1,12 @@
-import { useCallback, useState, useTransition } from 'react'
+import { useCallback, useEffect, useState, useTransition } from 'react'
 import { dialog, generateId, modal, notice } from '@/utils'
 
 export default function LabsContainer() {
   // __STATE <React.Hooks>
   const [count, setCount] = useState<number>(0)
   const [isPadding, startTransition] = useTransition()
+
+  const [state, setState] = useState<any[]>([])
 
   // __FUNCTIONS
   const handleClick = useCallback(() => {
@@ -39,6 +41,15 @@ export default function LabsContainer() {
     })
   }, [])
 
+  // __EFFECTS
+  useEffect(() => {
+    fetch('/api/space?album=1')
+      .then((resp) => resp.json())
+      .then((resp) => {
+        setState(resp)
+      })
+  }, [])
+
   // __RENDER
   return (
     <div className='ui--labs-container container'>
@@ -64,6 +75,15 @@ export default function LabsContainer() {
         <button className='btn btn-primary' onClick={handleNotice}>
           <span className='text'>notice</span>
         </button>
+      </div>
+
+      <div className='rows grid-2'>
+        {state.map((record, index) => (
+          <div className='lorem' key={index}>
+            <img className='poster' src={record.posters[0]} loading='lazy' />
+            <i className='name'>{record.name}</i>
+          </div>
+        ))}
       </div>
     </div>
   )

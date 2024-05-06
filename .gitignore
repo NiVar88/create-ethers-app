@@ -2,11 +2,12 @@
 
 # dependencies
 /node_modules
+/public/**/posters/**
 
 # production
 /.next
 /dist
-/data
+/data/**
 
 # misc
 .DS_Store

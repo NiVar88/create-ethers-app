@@ -20,10 +20,22 @@ export class Store {
     this.isConnected = true
   }
 
-  public setState(changes: any) {
+  public getState() {
+    if (this.state && this.state.length) {
+      return this.state
+    } else {
+      const data = readFileSync(this.pathFile, 'utf8')
+      if (data) {
+        this.state = JSON.parse(data)
+        return this.state
+      }
+    }
+  }
+
+  public setState(changes: object | any[]) {
     if (this.isConnected) {
       const data = this.state || {}
-      writeFileSync(this.pathFile, JSON.stringify(data), { flag: 'w', encoding: 'utf8' })
+      writeFileSync(this.pathFile, JSON.stringify(changes), { flag: 'w', encoding: 'utf8' })
       Object.assign(data, changes)
     }
   }
